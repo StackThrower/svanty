@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://svanty.com/public/sitemaps/blog.xml</loc>
+    <lastmod>2023-04-03T19:47:20.013+03:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://svanty.com/public/sitemaps/images.xml</loc>
+    <lastmod>2023-04-03T19:47:20.013+03:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://svanty.com/public/sitemaps/tags.xml</loc>
+    <lastmod>2023-04-03T19:47:20.013+03:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://svanty.com/public/sitemaps/pages.xml</loc>
+    <lastmod>2023-04-03T19:47:20.013+03:00</lastmod>
+  </sitemap>
+</sitemapindex>

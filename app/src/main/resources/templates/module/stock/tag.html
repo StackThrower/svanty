@@ -1,0 +1,72 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${title}, ${tag.description})}">
+
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover" th:style="'background-image: url(https://svanty.com/public/uploads/preview/' + ${tag.poster} + ') !important;'">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site title-sm" th:utext="${title}"></h1>
+
+		<p class="subtitle-site"><strong>
+			<i class="icon icon-Tag myicon-right"></i> <th:block th:utext="#{text.photos-with-tag}"></th:block> (<th:block th:utext="${imagesCount}"></th:block>) </strong></p>
+	</div>
+</div>
+
+<p style="text-align:center;"></p>
+
+<div class="container-fluid margin-bottom-40">
+
+	<!-- Col MD -->
+	<div class="col-md-12 margin-top-20 margin-bottom-20">
+
+
+		<div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult">
+
+			<th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+			<div class="container-paginator">
+				<th:block th:replace="~{module/stock/layout/pagination :: pagination (${images}, '/tag/' + ${tag.slug})}"></th:block>
+			</div>
+
+		</div><!-- Image Flex -->
+
+
+	</div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+</body>
+
+
+<bottomScript>
+	<script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+	<meta property="og:type" content="website"/>
+	<meta property="og:image:width" content="200"/>
+	<meta property="og:image:height" content="100"/>
+
+	<meta property="og:site_name" th:content="#{text.details-site-name}"/>
+	<meta property="og:url"
+		  th:content="@{https://svanty.com/{locale}/tag/{slug}(locale=${locale}, slug=${tag.slug})}"/>
+	<meta property="og:image"
+		  th:content="@{https://svanty.com/public/uploads/preview/{url}(url=${tag.poster})}"/>
+	<meta property="og:title" th:content="${title}"/>
+	<meta property="og:description" th:content="${tag.description}"/>
+
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:image"
+		  th:content="@{https://svanty.com/public/uploads/preview/{url}(url=${tag.poster})}"/>
+	<meta name="twitter:title" th:content="${title}"/>
+	<meta name="twitter:description" th:content="${tag.description}"/>
+
+
+</commonHead>

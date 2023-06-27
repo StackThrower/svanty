@@ -1,0 +1,552 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${title}, ${image.description})}">
+
+<body>
+
+<div class="container margin-bottom-40 padding-top-40">
+
+    <!-- Col MD -->
+    <div class="col-md-9">
+
+
+        <div class="text-center margin-bottom-20">
+            <div th:style="'margin: 0 auto; background: url(\'https://svanty.com/public/img/pixel.gif\') repeat center center; max-width:'+ @{${image.width}} + 'px; max-height:' + @{${image.height}} + 'px'">
+
+                <a th:href="@{https://svanty.com/public/uploads/preview/{url}(url=${image.preview})}"
+                   class="js-smartPhoto" th:data-caption="${image.title}" style="cursor: zoom-in;">
+                    <img class="img-responsive img-rounded lazyload" style="display: inline-block; width: 850px"
+                         th:src="@{https://svanty.com/public/uploads/preview/{url}(url=${image.preview})}"/>
+                </a>
+            </div>
+
+        </div>
+        <h1 class="class-montserrat title-image none-overflow" th:utext="${image.title}"></h1>
+        <hr/>
+        <p class="description none-overflow" th:utext="${image.description}">
+        </p>
+
+        <!-- Start Block -->
+        <div class="btn-block margin-bottom-20" th:if="${image.version > 0}">
+            <h3 th:utext="#{text.tags}"></h3>
+
+            <th:block th:each="tag : ${image.tags}">
+                <a th:href="@{/{locale}/tag/{tag}(locale=${locale}, tag=${tag.slug})}"
+                   class="btn btn-danger tags font-default btn-sm" th:utext="${tag.title}"></a>
+            </th:block>
+        </div><!-- End Block -->
+
+        <!-- Start Block -->
+        <div class="btn-block margin-bottom-20 po">
+            <h3 th:utext="#{text.similar-photos}"></h3>
+            <div id="imagesFlex" class="flex-images btn-block margin-bottom-40">
+                <th:block th:each="similarPhoto : ${image.similarImages}">
+                    <!-- Start Item -->
+                    <a th:data-w="${similarPhoto.width}" th:data-h="${similarPhoto.height}"
+                       th:href="@{/{locale}/photo/{id}/{slug}(locale=${locale}, id=${similarPhoto.id}, slug=${similarPhoto.slug})}"
+                       class="item hovercard" style="background-color: #93B3C0">
+                        <!-- hover-content -->
+                        <span class="hover-content">
+			<h5 class="text-overflow title-hover-content" th:title="${similarPhoto.title}">
+				 <i class="icon icon-Medal myicon-right" title="Лучшее"></i> <th:block
+                    th:utext="${similarPhoto.title}"></th:block>
+				</h5>
+
+			<h5 class="text-overflow author-label mg-bottom-xs" th:title="${similarPhoto.user.name}">
+				<img th:src="@{https://svanty.com/public/uploads/avatar/{url}(url=${similarPhoto.user.avatar})}"
+                     alt="User" class="img-circle"
+                     style="object-fit:cover;width: 20px; height: 20px; display: inline-block; margin-right: 5px;">
+				<em th:utext="${similarPhoto.user.name}"></em>
+				</h5>
+				<span class="timeAgo btn-block date-color text-overflow" th:data="${similarPhoto.date}"></span>
+
+				<h5 class="text-overflow author-label mg-bottom-xs"><em></em></h5>
+
+
+
+			<span class="sub-hover">
+                <span class="myicon-right"><i class="fa fa-heart-o myicon-right"></i> <th:block
+                        th:utext="${similarPhoto.likeCount}"></th:block></span>
+				<span class="myicon-right"><i class="icon icon-Download myicon-right"></i> <th:block
+                        th:utext="${similarPhoto.downloadCount}"></th:block></span>
+			</span><!-- Span Out -->
+	</span><!-- hover-content -->
+
+                        <img sizes="580px"
+                             th:src="@{https://svanty.com/public/uploads/preview/{url}(url=${similarPhoto.preview})}"
+                             class="previewImage d-none" th:alt="${similarPhoto.title}"/>
+                    </a>
+                    <!-- End Item -->
+                </th:block>
+
+
+            </div>
+        </div><!-- End Block -->
+
+        <!-- Start Block -->
+        <div class="btn-block margin-bottom-20">
+            <h3>
+                <th:block th:utext="#{text.comments}"></th:block>
+                (<span id="totalComments">0</span>)
+            </h3>
+
+
+            <div class="gridComments" id="gridComments" style="padding-top: 15px;">
+            </div><!-- gridComments -->
+
+
+            <div class="btn-block text-center noComments">
+                <i class="icon icon-MessageRight ico-no-result"></i>
+            </div>
+
+            <h3 class="margin-top-none text-center no-result row-margin-20 noComments"
+                th:utext="#{text.no-comments-yet}"></h3>
+            <hr/>
+            <div class="alert alert-loggin text-center alert-custom" role="alert">
+                <th:block th:utext="#{text.you-must-be-logged-in-to-comment-photo}"></th:block>
+
+                <a th:href="@{/{locale}/signup(locale=${locale})}" class="btn btn-xs btn-success"
+                   th:utext="#{button.signup}"></a>
+                <a th:href="@{/{locale}/signin(locale=${locale})}" th:utext="#{button.signin}"></a>
+            </div>
+        </div><!-- End Block -->
+
+    </div><!-- /COL MD -->
+
+    <div class="col-md-3">
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media none-overflow">
+                    <div class="media-left">
+                        <a th:href="@{/{locale}/account/{username}(locale=${locale}, username=${image.user.username})}">
+                            <img class="media-object img-circle"
+                                 style="object-fit:cover;"
+                                 th:src="@{https://svanty.com/public/uploads/avatar/{url}(url=${image.user.avatar})}"
+                                 width="50" height="50">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a th:href="@{/{locale}/account/{username}(locale=${locale}, username=${image.user.username})}"
+                           class="text-username font-default">
+                            <h4 class="media-heading" th:utext="${image.user.name}"></h4>
+                        </a>
+                        <small class="media-heading text-muted btn-block margin-zero">
+                            <th:block th:utext="#{text.published-on}"></th:block>
+                            <th:block th:utext="${image.formattedDate}"></th:block>
+                        </small>
+                        <small class="media-heading text-muted">
+                            <th:block th:utext="${image.userImageCount}"></th:block>
+                            <th:block th:utext="#{text.photos}"></th:block>
+                        </small>
+                        <p class="margin-top-10"></p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Panel -->
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body padding-zero">
+                <ul class="list-stats list-inline">
+                    <li>
+                        <h4 class="btn-block text-center" th:utext="${image.viewCount}"></h4>
+                        <small class="btn-block text-center text-muted" th:utext="#{text.views}"></small>
+                    </li>
+
+                    <li>
+                        <h4 class="btn-block text-center" id="countLikes" th:utext="${image.likeCount}"></h4>
+                        <small class="btn-block text-center text-muted" th:utext="#{text.likes}"></small>
+                    </li>
+
+                    <li>
+                        <h4 class="btn-block text-center" th:utext="${image.downloadCount}"></h4>
+                        <small class="btn-block text-center text-muted" th:utext="#{text.downloads}"></small>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div><!-- End Panel -->
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <i class="icon icon-Medal myicon-right"></i> <span class="text-muted"><th:block
+                    th:utext="#{text.featured-on}"></th:block> </span>
+                <strong>
+                    <th:block th:utext="${image.formattedDate}"></th:block>
+                </strong>
+
+            </div>
+        </div><!-- End Panel -->
+
+
+        <!-- btn-group -->
+        <div class="btn-group btn-block margin-bottom-20">
+
+
+            <form th:action="@{/{locale}/downloadImage(locale=${locale})}"
+                  method="post">
+                <input type="hidden" name="id" th:value="${image.id}" />
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--                <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
+<!--                <div id="_g-recaptcha"></div>-->
+                <!--                <div class="g-recaptcha" data-sitekey="6Lfjas4ZAAAAABe6QWp5Z7nHrMi3Htnvsi_oa-NS" data-size="invisible" data-callback="_submitForm" data-badge="bottomleft"></div><script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+                <!--                <script>var _submitForm,_captchaForm,_captchaSubmit,_execute=true,_captchaBadge;</script><script>window.addEventListener('load', _loadCaptcha);-->
+                <!--function _loadCaptcha(){_captchaForm=document.querySelector("#_g-recaptcha").closest("form");_captchaSubmit=_captchaForm.querySelector('[type=submit]');_submitForm=function(){if(typeof _submitEvent==="function"){_submitEvent();grecaptcha.reset();}else{_captchaForm.submit();}};_captchaForm.addEventListener('submit',function(e){e.preventDefault();if(typeof _beforeSubmit==='function'){_execute=_beforeSubmit(e);}if(_execute){grecaptcha.execute();}});}</script>-->
+
+                <div class="form-group">
+                    <dd>
+                        <th:block th:each="file, iter: ${image.files}">
+                            <div class="radio margin-bottom-15">
+                                <label class="padding-zero">
+                                    <th:block th:if="${iter.index == 0}">
+                                        <input id="popular_sort" class="no-show" checked name="type" type="radio"
+                                               th:value="${file.type}">
+                                    </th:block>
+                                    <th:block th:if="${iter.index != 0}">
+                                        <input class="no-show" name="type" type="radio" th:value="${file.type}">
+                                    </th:block>
+                                    <span class="input-sm"
+                                          style="width: 95%; float: left; position: absolute; padding: 0 10px; height: auto">
+                      <span class="label label-default myicon-right">
+                          <th:block th:if="${#strings.equals(file.type, 'small')}">S</th:block>
+                          <th:block th:if="${#strings.equals(file.type, 'medium')}">M</th:block>
+                          <th:block th:if="${#strings.equals(file.type, 'large')}">L</th:block>
+                      </span> <th:block th:utext="${file.resolution}"></th:block>
+                      <span class="pull-right" th:utext="${file.size}"></span>
+                      </span>
+                                </label>
+                            </div>
+                        </th:block>
+
+
+                    </dd>
+                </div><!-- form-group -->
+
+                <!-- btn-free -->
+                <button type="submit" class="btn btn-success btn-lg btn-block dropdown-toggle" id="downloadBtn">
+                    <i class="fa fa-cloud-download myicon-right"></i>
+                    <th:block th:utext="#{button.download}"></th:block>
+                </button>
+                <!-- btn-free -->
+            </form>
+        </div><!-- End btn-group -->
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5><i class="fa fa-creative-commons myicon-right" aria-hidden="true"></i> <strong
+                        th:utext="#{text.license-and-use}"></strong></h5>
+                <small class="text-muted"><i class="glyphicon glyphicon-ok myicon-right"></i>
+                    <th:block th:utext="#{text.license-and-use}"></th:block>
+                </small>
+
+                <small class="btn-block text-muted"><i class="glyphicon glyphicon-remove myicon-right"></i>
+                    <th:block th:utext="#{text.free-for-commercial-use}"></th:block>
+                </small>
+
+            </div>
+        </div><!-- End Panel -->
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5 class="pull-left margin-zero" style="line-height: inherit;"><i class="icon icon-Share myicon-right"
+                                                                                   aria-hidden="true"></i> <strong
+                        th:utext="#{text.share}"></strong>
+                </h5>
+
+                <ul class="list-inline pull-right margin-zero">
+                    <li><a title="Facebook"
+                           href="https://www.facebook.com/sharer/sharer.php?u=https://svanty.com/photo/379"
+                           target="_blank"><img src="https://svanty.com/public/uploads/img/social/facebook.png" width="20"/></a>
+                    </li>
+                    <li><a title="Twitter"
+                           href="https://twitter.com/intent/tweet?url=https://svanty.com/photo/379&text=На берегу моря"
+                           data-url="https://svanty.com/photo/379" target="_blank"><img width="20"
+                                                                                        src="https://svanty.com/public/uploads/img/social/twitter.png"/></a>
+                    </li>
+                    <li style="padding-right: 0;"><a title="Pinterest"
+                                                     href="//www.pinterest.com/pin/create/button/?url=https://svanty.com/photo/379&media=https://svanty.com/files/preview/1280x850/121634291303onydkiduceqldq3uoiqew2beetxfs5za9dsgvoxy2woxpm08gi3gxum5vlyguqlyv8p9lsg6rdzbvhgwlqscttnv9go0fpu8gxmc.jpg&description=На берегу моря"
+                                                     target="_blank"><img width="20"
+                                                                          src="https://svanty.com/public/uploads/img/social/pinterest.png"/></a>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- End Panel -->
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5><i class="icon icon-DSLRCamera myicon-right" aria-hidden="true"></i> <strong
+                        th:utext="#{text.exif-data}"></strong></h5>
+
+                <small class="btn-block text-muted" th:utext="#{text.photo-taken-with}"></small>
+                <small class="btn-block text-muted"><a
+                        th:href="@{/{locale}/cameras/{camera}(locale=${locale}, camera=${image.camera})}"
+                        th:utext="${image.camera}"></a></small>
+
+                <small class="btn-block text-muted wordSpacing" th:utext="${image.exif}"></small>
+
+            </div>
+        </div><!-- End Panel -->
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5><i class="icon icon-Drop myicon-right" aria-hidden="true"></i> <strong
+                        th:utext="#{text.color-palette}"></strong></h5>
+
+                <th:block th:each="color: ${image.colors}">
+                    <a th:title="'#' + ${color}" th:href="@{/{locale}/colors/{code}(locale=${locale}, code=${color})}"
+                       class="colorPalette showTooltip"
+                       th:style="'background-color: #' + ${color} + ';'"></a>
+                </th:block>
+
+
+            </div>
+        </div><!-- End Panel -->
+
+        <ul class="list-group">
+            <li class="list-group-item"><i class="icon-info myicon-right"></i> <strong
+                    th:utext="#{text.details}"></strong></li>
+
+            <li class="list-group-item"><span class="badge data-xs-img"><th:block
+                    th:utext="${image.formattedDate}"></th:block></span>
+                <th:block th:utext="#{text.published-on}"></th:block>
+            </li>
+            <li class="list-group-item"><span class="badge data-xs-img"><th:block
+                    th:utext="${image.fileType}"></th:block></span>
+                <th:block th:utext="#{text.photo-type}"></th:block>
+            </li>
+            <li class="list-group-item"><span class="badge data-xs-img"><th:block
+                    th:utext="${image.maxResolution}"></th:block></span>
+                <th:block th:utext="#{text.resolution}"></th:block>
+            </li>
+            <li class="list-group-item"><span class="badge data-xs-img"><a
+                    th:href="@{/{locale}/category/{slug}(locale=${locale}, slug=${image.category.slug})}"
+                    th:title="${image.category.name}" th:utext="${image.category.name}"></a></span>
+                <th:block th:utext="#{text.category}"></th:block>
+            </li>
+            <li href="#" class="list-group-item"><span class="badge data-xs-img"><th:block
+                    th:utext="${image.maxFileSize}"></th:block></span>
+                <th:block th:utext="#{text.file-size}"></th:block>
+            </li>
+        </ul>
+
+
+        <div class="margin-top-20" th:utext="${settings.googleAdsense}"></div>
+
+    </div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+
+</body>
+
+
+<bottomScript>
+
+    <script th:src="@{{context}plugins/iCheck/icheck.min.js(context=${static_context})}"
+            type="text/javascript"></script>
+    <script th:src="@{{context}js/smartphoto.min.js(context=${static_context})}" type="text/javascript"></script>
+    <script th:src="@{{context}js/lazysizes.min.js(context=${static_context})}" async=""></script>
+
+    <script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded',function(){
+  new SmartPhoto(".js-smartPhoto",{
+    resizeStyle: 'fit'
+  });
+});
+
+$photo_small = false;
+$photo_regular_small = false;
+$photo_extended_small = false;
+
+$photo_medium = false;
+$photo_regular_medium = false;
+$photo_extended_medium = false;
+
+$photo_large = false;
+$photo_regular_large = false;
+$photo_extended_large = false;
+
+$photo_vector = false;
+$photo_regular_vector = false;
+$photo_extended_vector = false;
+
+$autor = false;
+
+$('#imagesFlex').flexImages({ maxRows: 3, truncate: true });
+
+$('#btnFormPP').click(function(e){
+	$('#form_pp').submit();
+});
+
+$('input').iCheck({
+          radioClass: 'iradio_flat-green',
+          checkboxClass: 'icheckbox_square-green',
+        });
+
+
+
+
+  //<<<---------- Comments Likes
+$(document).on('click','.comments-likes',function() {
+   	element  = $(this);
+   	var id   = element.attr("data-id");
+   	var info = 'comment_id=' + id;
+
+   		element.removeClass('comments-likes');
+
+   		$.ajax({
+   			headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    		},
+		   type: "POST",
+		   url: "https://svanty.com/comments/likes",
+		   data: info,
+		   success: function( data ) {
+
+
+                $( '#collapse'+ id ).html(data);
+                $('[data-toggle="tooltip"]').tooltip();
+
+				if( data == '' ){
+					$( '#collapse'+ id ).html("Возникла ошибка");
+				}
+				}//<-- $data
+			});
+   });
+
+
+
+
+	//<<---- PAGINATION AJAX
+        $(document).on('click','.pagination a', function(e){
+			e.preventDefault();
+			var page = $(this).attr('href').split('page=')[1];
+			$.ajax({
+				headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    		},
+					url: 'https://svanty.com/ajax/comments?photo=379&page=' + page
+
+
+			}).done(function(data){
+				if( data ) {
+
+					scrollElement('#gridComments');
+
+					$('.gridComments').html(data);
+
+					jQuery(".timeAgo").timeago();
+
+					$('[data-toggle="tooltip"]').tooltip();
+				} else {
+					sweetAlert("Ой...", "Возникла ошибка", "error");
+				}
+				//<**** - Tooltip
+			});
+		});//<<---- PAGINATION AJAX
+
+
+
+      $('#license').on('change', function() {
+        $price = $('#itemPrice').html();
+
+        if($(this).val() == 'regular') {
+          $('#itemPrice').html(($price/10));
+        } else {
+          $('#itemPrice').html(($price*10));
+        }
+      });
+
+    $('.itemPrice').on('click', function() {
+
+      var type  = $(this).attr("data-type");
+      var amount  = $(this).attr("data-amount");
+      var buttonDownload = '<i class="fa fa-cloud-download myicon-right"></i> Загрузить';
+      var license = $('#license').val();
+
+      if (license == 'regular') {
+        var valueOriginal = 0;
+      } else {
+        var valueOriginal = (0*10);
+      }
+
+      var amountMedium = (valueOriginal * 2);
+      var amountLarge = (valueOriginal * 3);
+      var amountVector = (valueOriginal * 4);
+
+      if (type == 'small') {
+
+        if($autor == false) {
+          if (typeof confirmPurchase == 'function') {confirmPurchase();}
+          $('#downloadBtn').html('<i class="fa fa-shopping-cart myicon-right"></i> Купить <span id="priceItem">$<span id="itemPrice">'+valueOriginal+'</span> <small class="sm-currency-code">USD</small></span>')
+          .attr('data-type', 'small');
+        }
+
+      } else if (type == 'medium') {
+
+        if($autor == false) {
+          if (typeof confirmPurchase == 'function') {confirmPurchase();}
+          $('#downloadBtn').html('<i class="fa fa-shopping-cart myicon-right"></i> Купить <span id="priceItem">$<span id="itemPrice">'+amountMedium+'</span> <small class="sm-currency-code">USD</small></span>')
+          .attr('data-type', 'medium');
+        }
+
+      } else if (type == 'large') {
+
+        if($autor == false) {
+          if (typeof confirmPurchase == 'function') {confirmPurchase();}
+          $('#downloadBtn').html('<i class="fa fa-shopping-cart myicon-right"></i> Купить <span id="priceItem">$<span id="itemPrice">'+amountLarge+'</span> <small class="sm-currency-code">USD</small></span>')
+          .attr('data-type', 'large');
+        }
+
+      }  else if (type == 'vector') {
+
+        if($autor == false) {
+          if (typeof confirmPurchase == 'function') {confirmPurchase();}
+          $('#downloadBtn').html('<i class="fa fa-shopping-cart myicon-right"></i> Купить <span id="priceItem">$<span id="itemPrice">'+amountVector+'</span> <small class="sm-currency-code">USD</small></span>')
+          .attr('data-type', 'vector');
+        }
+      }
+    });
+
+
+
+
+    </script>
+</bottomScript>
+
+
+<commonHead>
+    <link th:href="@{{context}plugins/iCheck/all.css(context=${static_context})}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{{context}css/smartphoto.min.css(context=${static_context})}" rel="stylesheet" type="text/css"/>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:image:width" th:content="${image.width}"/>
+    <meta property="og:image:height" th:content="${image.height}"/>
+
+    <meta property="og:site_name" th:content="#{text.details-site-name}"/>
+    <meta property="og:url"
+          th:content="@{https://svanty.com/{locale}/photo/{id}/{slug}(locale=${locale}, id=${image.id}, slug=${image.slug})}"/>
+    <meta property="og:image"
+          th:content="@{https://svanty.com/public/uploads/preview/{url}(url=${image.preview})}"/>
+    <meta property="og:title" th:content="${title}"/>
+    <meta property="og:description" th:content="${image.description}"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image"
+          th:content="@{https://svanty.com/public/uploads/preview/{url}(url=${image.preview})}"/>
+    <meta name="twitter:title" th:content="${title}"/>
+    <meta name="twitter:description" th:content="${image.description}"/>
+</commonHead>

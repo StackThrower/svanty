@@ -1,0 +1,80 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.most-viewed}, #{description.most-viewed})}">
+
+<body>
+
+<button type="button" class="btn btn-default btn-block btn-border btn-lg show-toogle btn-collapse" data-toggle="collapse" data-target=".responsive-side" style="margin-bottom: 20px;">
+	<i class="fa fa-bars myicon-right"></i> Меню
+</button>
+
+
+<nav class="navbar navbar-default margin-b-10 navbar-user-ui nav-filters" role="navigation">
+	<div class="container">
+		<div style="width: 100%; text-align: center;">
+			<div class="responsive-side collapse">
+				<ul class="nav nav-pills nav-user-profile tabs_index">
+					<li><a th:href="@{/{locale}/premium(locale=${locale})}" th:utext="#{menu.premium}"></a></li>
+					<li><a th:href="@{/{locale}/latest(locale=${locale})}" th:utext="#{menu.latest}"></a></li>
+					<li><a th:href="@{/{locale}/featured(locale=${locale})}" th:utext="#{menu.featured}"></a></li>
+					<li><a th:href="@{/{locale}/popular(locale=${locale})}" th:utext="#{menu.popular}"></a></li>
+					<li><a th:href="@{/{locale}/most/commented(locale=${locale})}" th:utext="#{menu.most-commented}"></a></li>
+					<li class="active"><a href="#" th:utext="#{menu.most-viewed}"></a></li>
+					<li><a th:href="@{/{locale}/most/downloads(locale=${locale})}" th:utext="#{menu.most-downloads}"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div><!-- container -->
+</nav>
+
+<nav class="navbar navbar-inverse margin-b-10 nav-filters" role="navigation" style="background-color:#FFF;">
+	<div class="container text-center">
+		<div style="width: 100%; text-align: center;">
+			<ul class="nav nav-pills nav-user-profile tabs_index">
+				<li th:class="${#strings.equals(timeframe, 'all')} ? active : ''">
+					<a th:href="@{/{locale}/featured(locale=${locale})}" th:utext="#{menu.all-time}"></a>
+				</li>
+				<li th:class="${#strings.equals(timeframe, 'today')} ? active : ''"><a th:href="@{/{locale}/most/viewed?timeframe=today(locale=${locale})}" th:utext="#{menu.today}"></a></li>
+				<li th:class="${#strings.equals(timeframe, 'week')} ? active : ''"><a th:href="@{/{locale}/most/viewed?timeframe=week(locale=${locale})}" th:utext="#{menu.this-week}"></a></li>
+				<li th:class="${#strings.equals(timeframe, 'month')} ? active : ''"><a th:href="@{/{locale}/most/viewed?timeframe=month(locale=${locale})}" th:utext="#{menu.this.month}"></a></li>
+				<li th:class="${#strings.equals(timeframe, 'year')} ? active : ''"><a th:href="@{/{locale}/most/viewed?timeframe=year(locale=${locale})}" th:utext="#{menu.this-year}"></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container-fluid margin-bottom-40 padding-top-40">
+	<div class="row">
+
+		<!-- col-md-8 -->
+		<div class="col-md-12">
+
+			<div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult">
+
+				<th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+				<div class="container-paginator">
+					<th:block th:replace="~{module/stock/layout/pagination :: pagination (${images}, '/most/commented')}"></th:block>
+				</div>
+
+			</div><!-- Image Flex -->
+
+		</div><!-- col-md-12-->
+
+	</div><!-- row -->
+</div><!-- container -->
+
+</body>
+
+<bottomScript>
+	<script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

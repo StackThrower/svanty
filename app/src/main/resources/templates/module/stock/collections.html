@@ -1,0 +1,42 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.collections}, #{description.collections})}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site title-sm"><th:block th:utext="#{text.collections}"></th:block> (0)</h1>
+		<p class="subtitle-site">
+			<strong th:utext="#{subtitle.collections}"></strong>
+		</p>
+	</div>
+</div>
+<div class="container margin-bottom-40">
+
+	<!-- Col MD -->
+	<div class="col-md-12 margin-top-20 margin-bottom-20">
+
+		<div class="btn-block text-center">
+			<i class="icon icon-Picture ico-no-result"></i>
+		</div>
+
+		<p class="margin-top-none text-center no-result no-result-mg" th:utext="#{text.not-found}"></p>
+
+
+	</div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+</body>
+
+<bottomScript>
+	<script type="text/javascript">
+
+	</script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

@@ -1,0 +1,195 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${post.title}, ${post.description})}">
+<body>
+
+<style type="text/css">
+    .wp-block-image img {
+        max-width: 100%;
+    }
+
+    .wp-block-image {
+        margin-bottom: 1em;
+        margin-top: 1em;
+    }
+
+    .aligncenter {
+        text-align: center;
+    }
+
+    .wp-block-gallery {
+        display: none;
+    }
+
+    .cc-post-container img {
+        width: 90% !important;
+        object-fit:cover;
+    }
+
+    .title-site {
+        font-size: 35px !important;
+    }
+
+    .cc-post-container p, .cc-post-container li {
+        font-size: 18px;
+        font-weight: lighter;
+    }
+
+    .cc-post-container li {
+        list-style: disc;
+    }
+
+
+    .cc-post-container h3, .cc-post-container h2 {
+        font-size: 20px;
+    }
+
+
+</style>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover" th:style="'background-image: url(' + ${post.poster} + ') !important;'">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site" th:utext="${post.title}"></h1>
+    </div>
+</div>
+
+<div class="container margin-bottom-40">
+
+    <ol class="breadcrumb bg-none">
+        <li><a href="/"><i class="glyphicon glyphicon-home myicon-right"></i></a></li>
+        <li><a th:href="@{/{locale}/blog(locale=${locale})}">Blog</a></li>
+        <li class="active" th:utext="${post.title}"></li>
+    </ol>
+    <hr/>
+
+
+    <!-- Col MD -->
+    <div class="col-md-9">
+        <!-- Start Block -->
+<!--        <div class="btn-block margin-bottom-20">-->
+<!--            <a href="https://svanty.com/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--               class="btn btn-danger tags font-default btn-sm">-->
+<!--                фотография-->
+<!--            </a>-->
+<!--            <a href="https://svanty.com/tags/%D1%81%D1%83%D1%85%D0%BE%D1%81%D1%82%D0%BE%D0%B9"-->
+<!--               class="btn btn-danger tags font-default btn-sm">-->
+<!--                заработок в сети-->
+<!--            </a>-->
+<!--        </div>&lt;!&ndash; End Block &ndash;&gt;-->
+
+        <!-- Post -->
+        <div class="btn-block margin-bottom-20">
+            <div class="cc-post-container">
+                <div class="rich-text w-richtext" th:utext="${post.content}"></div>
+            </div>
+        </div>
+
+
+    </div><!-- /COL MD -->
+
+    <div class="col-md-3">
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media none-overflow">
+                    <div class="media-left">
+                        <a th:href="@{/{locale}/account/rulikov(locale=${locale})}">
+                            <img class="media-object img-circle"
+                                 src="https://svanty.com/public/uploads/avatar/buyer-51631805869victdopdae.jpg" width="50"
+                                 height="50">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a th:href="@{/{locale}/account/rulikov(locale=${locale})}" class="text-username font-default">
+                            <h4 class="media-heading">rulikov</h4>
+                        </a>
+                        <small class="media-heading text-muted btn-block margin-zero">Опубликовано Ноя 25,
+                            2021</small>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Panel -->
+
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body padding-zero">
+                <ul class="list-stats list-inline">
+                    <li>
+                        <h4 class="btn-block text-center">10000</h4>
+                        <small class="btn-block text-center text-muted">Просмотров</small>
+                    </li>
+
+                    <li>
+                        <h4 class="btn-block text-center" id="countLikes">323</h4>
+                        <small class="btn-block text-center text-muted">Лайков</small>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div><!-- End Panel -->
+
+        <!-- Start Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h5 class="pull-left margin-zero" style="line-height: inherit;"><i
+                        class="icon icon-Share myicon-right" aria-hidden="true"></i> <strong>Соц сети</strong>
+                </h5>
+
+                <ul class="list-inline pull-right margin-zero">
+                    <li><a title="Facebook"
+                           href="https://www.facebook.com/sharer/sharer.php?u=https://svanty.com/photo/398"
+                           target="_blank"><img src="https://svanty.com/public/uploads/img/social/facebook.png" width="20"/></a>
+                    </li>
+                    <li><a title="Twitter"
+                           href="https://twitter.com/intent/tweet?url=https://svanty.com/photo/398&text=На огороде"
+                           data-url="https://svanty.com/photo/398" target="_blank"><img width="20"
+                                                                                        src="https://svanty.com/public/uploads/img/social/twitter.png"/></a>
+                    </li>
+                    <li style="padding-right: 0;"><a title="Pinterest"
+                                                     href="//www.pinterest.com/pin/create/button/?url=https://svanty.com/photo/398&media=https://svanty.com/files/preview/1280x853/51637854251bcov4i6pliezg27ltvde4qzqsygstti2jzgkxhnhdvnk1mdrgch8cprgpqnxaelx6quorqbqo6irmpyleubds45p9uxhwqmiwdqn.jpeg&description=На огороде"
+                                                     target="_blank"><img width="20"
+                                                                          src="https://svanty.com/public/uploads/img/social/pinterest.png"/></a>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- End Panel -->
+
+        <div class="margin-top-20" th:utext="${settings.googleAdsense}"></div>
+
+    </div><!-- /COL MD -->
+
+</div>
+
+</body>
+
+<bottomScript>
+    <script type="text/javascript">
+
+        $('#imagesFlex').flexImages({ maxRows: 3, truncate: true });
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:image:width" content="850"/>
+    <meta property="og:image:height" content="567"/>
+
+    <meta property="og:site_name" th:content="#{text.details-site-name}"/>
+    <meta property="og:url" th:content="'https://svanty.com/' + ${locale} + '/post/' + ${post.slug}"/>
+    <meta property="og:image"
+          th:content="${post.poster}"/>
+    <meta property="og:title" th:content="${post.title}"/>
+    <meta property="og:description" th:content="${post.description}"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image"
+          th:content="${post.poster}"/>
+    <meta name="twitter:title" th:content="${post.title}"/>
+    <meta name="twitter:description" th:content="${post.description}"/>
+
+</commonHead>

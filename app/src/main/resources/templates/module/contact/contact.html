@@ -1,0 +1,112 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.contact}, #{description.contact})}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site title-sm" th:utext="#{subtitle.contact}"></h1>
+		<p class="subtitle-site"><strong th:utext="#{text.if-you-have-question}"></strong></p>
+	</div>
+</div>
+
+<div class="container margin-bottom-40">
+
+	<!-- Col MD -->
+	<div class="col-md-12">
+
+		<div class="wrap-center center-block">
+
+			<th:block th:if="${isSent}">
+				<div>
+					<div class="alert alert-success">
+						<i class="glyphicon glyphicon-ok myicon-right"></i> <span
+							th:utext="#{text.contact-requested}"></span> <br><br>
+					</div>
+				</div>
+			</th:block>
+
+			<th:block th:if="${!isSent}">
+			<!-- ***** FORM ***** -->
+			<form th:action="@{/{locale}/contact(locale=${locale})}" th:object="${contactForm}"
+				  method="post" name="form">
+
+				<div class="box-body" th:if="${#fields.hasErrors()}">
+					<div class="alert alert-danger" id="dangerAlert">
+
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+
+						<i class="glyphicon glyphicon-alert myicon-right"></i> <span th:utext="#{text.error-with-input}"></span> <br><br>
+						<ul class="list-unstyled">
+							<li th:if="${#fields.hasErrors('name')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{name}"></span></li>
+							<li th:if="${#fields.hasErrors('email')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{email}"></span></li>
+							<li th:if="${#fields.hasErrors('subject')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{subject}"></span></li>
+							<li th:if="${#fields.hasErrors('message')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{message}"></span></li>
+
+						</ul>
+					</div>
+				</div>
+
+<!--				<input type="hidden" name="_token" value="KrRSXC5vgMIQc7LhFB9cLt5duQz3LJdkIsFusdJz">-->
+				<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+				<div id="_g-recaptcha"></div>
+<!--				<div class="g-recaptcha" data-sitekey="6Lfjas4ZAAAAABe6QWp5Z7nHrMi3Htnvsi_oa-NS" data-size="invisible" data-callback="_submitForm" data-badge="bottomleft"></div><script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+<!--				<script>var _submitForm,_captchaForm,_captchaSubmit,_execute=true,_captchaBadge;</script><script>window.addEventListener('load', _loadCaptcha);-->
+<!--function _loadCaptcha(){_captchaForm=document.querySelector("#_g-recaptcha").closest("form");_captchaSubmit=_captchaForm.querySelector('[type=submit]');_submitForm=function(){if(typeof _submitEvent==="function"){_submitEvent();grecaptcha.reset();}else{_captchaForm.submit();}};_captchaForm.addEventListener('submit',function(e){e.preventDefault();if(typeof _beforeSubmit==='function'){_execute=_beforeSubmit(e);}if(_execute){grecaptcha.execute();}});}</script>-->
+				<div class="row">
+					<div class="col-md-6">
+						<!-- ***** Form Group ***** -->
+						<div class="form-group has-feedback">
+							<label class="font-default" th:utext="#{field.name}"></label>
+							<input type="text" required class="form-control login-field custom-rounded" value="" name="name" th:placeholder="#{field.name}" th:title="#{field.name}" autocomplete="off">
+						</div><!-- ***** Form Group ***** -->
+					</div><!-- End Col MD-->
+
+					<div class="col-md-6">
+						<!-- ***** Form Group ***** -->
+						<div class="form-group has-feedback">
+							<label class="font-default" th:utext="#{field.email}"></label>
+							<input type="email" required class="form-control login-field custom-rounded" value="" name="email" th:placeholder="#{field.email}" th:title="#{field.email}" autocomplete="off">
+						</div><!-- ***** Form Group ***** -->
+					</div><!-- End Col MD-->
+				</div><!-- End row -->
+
+				<!-- ***** Form Group ***** -->
+				<div class="form-group has-feedback">
+					<label class="font-default" th:utext="#{field.subject}"></label>
+					<input type="text" required class="form-control login-field custom-rounded" value="" name="subject" th:placeholder="#{field.subject}" th:title="#{field.subject}" autocomplete="off">
+				</div><!-- ***** Form Group ***** -->
+
+				<!-- ***** Form Group ***** -->
+				<div class="form-group has-feedback">
+					<label class="font-default" th:utext="#{field.message}"></label>
+					<textarea name="message" required rows="4" class="form-control login-field custom-rounded"></textarea>
+				</div><!-- ***** Form Group ***** -->
+
+
+				<button type="submit" class="btn btn-block btn-lg btn-main custom-rounded" th:utext="#{button.send}"></button>
+
+			</form><!-- ***** END FORM ***** -->
+			</th:block>
+		</div><!-- wrap center -->
+
+	</div><!-- /COL MD -->
+
+
+</div><!-- container -->
+
+
+</body>
+
+<bottomScript>
+
+</bottomScript>
+
+
+<commonHead>
+
+</commonHead>

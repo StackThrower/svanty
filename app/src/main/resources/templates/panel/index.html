@@ -1,0 +1,141 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{panel/admin/layout/app :: layout (~{::body},'members', ~{::bottomScript})}">
+
+<bottomScript>
+    <script type="text/javascript">
+
+$(".actionDelete").click(function(e) {
+   	e.preventDefault();
+
+   	var element = $(this);
+	var id     = element.attr('data-url');
+	var form    = $(element).parents('form');
+
+	element.blur();
+
+	swal(
+		{   title: "Удалить?",
+		text: "Вы уверены, что хотите удалить этого пользователя?",
+		  type: "warning",
+		  showLoaderOnConfirm: true,
+		  showCancelButton: true,
+		  confirmButtonColor: "#DD6B55",
+		   confirmButtonText: "Да, удалить!",
+		   cancelButtonText: "Нет, отменить!",
+		    closeOnConfirm: false,
+		    },
+		    function(isConfirm){
+		    	 if (isConfirm) {
+		    	 	form.submit();
+		    	 	//$('#form' + id).submit();
+		    	 	}
+		    	 });
+
+
+		 });
+
+    </script>
+
+</bottomScript>
+
+<body>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h4>
+        Админ панель <i class="fa fa-angle-right margin-separator"></i> Участники (<span th:utext="${userCount}"></span>)
+    </h4>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Участники
+
+                    </h3>
+                    <div class="box-tools">
+
+                        <!-- form -->
+                        <form role="search" autocomplete="off" action="https://svanty.com/panel/admin/members"
+                              method="get">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="q" class="form-control pull-right" placeholder="Search">
+
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form><!-- form -->
+
+                    </div>
+                </div><!-- /.box-header -->
+
+
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody>
+
+                        <tr>
+                            <th class="active">ID</th>
+                            <th class="active">Имя пользователя</th>
+                            <th class="active">Фото</th>
+                            <th class="active">Баланс</th>
+                            <th class="active">Средства</th>
+                            <th class="active">Дата</th>
+                            <th class="active">IP</th>
+                            <th class="active">Статус</th>
+                            <th class="active">Действия</th>
+                        </tr>
+
+                        <tr th:each="user: ${users.page}">
+                            <td th:text="${user.id}"></td>
+                            <td><img src="https://svanty.com/public/avatar/default.jpg" width="20" height="20"
+                                     class="img-circle"/> <span th:text="${user.username}"></span></td>
+                            <td>0</td>
+                            <td>$0.00</td>
+                            <td>$0.00</td>
+                            <td>Ноя 19, 2021</td>
+                            <td>185.244.214.40</td>
+
+                            <td><span class="label label-success">Активный</span></td>
+                            <td>
+
+                                <a th:href="@{/{locale}/panel/admin/members/{id}/edit(locale=${locale}, id=${user.id})}"
+                                   class="btn btn-success btn-sm padding-btn">
+                                    Редактировать
+                                </a>
+
+                                <form method="POST" action="/panel/admin/members/16" accept-charset="UTF-8" id="form16"
+                                      class="displayInline"><input name="_method" type="hidden" value="DELETE"><input
+                                        name="_token" type="hidden" value="IuM9ssI7vaEuyetmNSslhdiMWN2GBaaAl50WlwXH">
+                                    <input data-url="16" class="btn btn-danger btn-sm padding-btn actionDelete"
+                                           type="submit" value="Удалить">
+                                </form>
+
+                            </td>
+
+                        </tr><!-- /.TR -->
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+
+            <th:block th:replace="~{fragment/pagination :: pagination (${users}, '/panel/admin/members')}"></th:block>
+
+        </div>
+    </div> <!--row-->
+
+    <!-- Your Page Content Here -->
+
+</section><!-- /.content -->
+</body>

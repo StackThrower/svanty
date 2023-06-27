@@ -1,0 +1,480 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, '', '')}">
+
+<body>
+
+
+<div class="container margin-bottom-40 padding-top-40">
+    <div class="row">
+
+        <!-- col-md-12 -->
+        <div class="col-md-12">
+
+            <div class="wrap-center center-block">
+
+                <div class="alert alert-warning" role="alert">
+
+                    <ul class="padding-zero">
+                        <li class="margin-bottom-10"><i class="glyphicon glyphicon-warning-sign myicon-right"></i>  Please read the terms and conditions to avoid sanctions</li>
+                        <li class="margin-bottom-10"><i class="glyphicon glyphicon-info-sign myicon-right"></i>  It is not allowed images of violence or pornographic content of any kind</li>
+                        <li class="margin-bottom-10"><i class="glyphicon glyphicon-info-sign myicon-right"></i>  Photos must be of Authoring</li>
+                    </ul>
+
+                </div>
+
+                <!-- form start -->
+                <form method="POST" th:action="@{/{locale}/upload(locale=${locale})}" enctype="multipart/form-data" id="formUpload" files="true">
+
+                    <div class="filer-input-dragDrop position-relative" id="draggable">
+
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                        <input type="file" accept="image/*" name="photo" id="filePhoto">
+
+                        <!-- previewPhoto -->
+                        <div class="previewPhoto"></div><!-- previewPhoto -->
+
+                        <div class="btn btn-danger btn-sm btn-remove-photo display-none" id="removePhoto">
+                            <i class="icon icon-Delete myicon-right"></i> Delete
+                        </div>
+
+                        <div class="filer-input-inner">
+                            <div class="filer-input-icon">
+                                <i class="fa fa-cloud-upload"></i>
+                            </div>
+                            <div class="filer-input-text">
+                                <h3 class="margin-bottom-10">Select image</h3>
+                                <h3>Max file size: 15MB </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default padding-20 border-none">
+
+                        <div class="panel-body">
+                            <!-- Start Form Group -->
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" value="" name="title" id="title" class="form-control" placeholder="Title">
+                            </div><!-- /.form-group-->
+
+                            <!-- Start Form Group -->
+                            <div class="form-group">
+                                <label>Tags</label>
+                                <input type="text" value="" id="tagInput"  name="tags" class="form-control" placeholder="Tags">
+                                <p class="help-block">* max tags count (10)</p>
+                            </div><!-- /.form-group-->
+
+                            <!-- Start Form Group -->
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select name="categories_id" class="form-control">
+                                    <th:block th:each="category: ${categories}">
+                                        <option th:value="${category.id}"><th:block th:utext="${category.name}"></th:block></option>
+                                    </th:block>
+                                </select>
+                            </div><!-- /.form-group-->
+
+                            <!-- Start Form Group -->
+<!--                            <div class="form-group">-->
+<!--                                <label>{{ trans('misc.item_for_sale') }}</label>-->
+<!--                                <select name="item_for_sale" class="form-control" id="itemForSale">-->
+<!--                                    <option value="free">{{ trans('misc.no_free') }}</option>-->
+<!--                                    <option value="sale">{{ trans('misc.yes_for_sale') }}</option>-->
+<!--                                </select>-->
+<!--                            </div>&lt;!&ndash; /.form-group&ndash;&gt;-->
+<!--                            <input type="hidden" name="item_for_sale" value="sale">-->
+
+                            <!-- Start Form Group -->
+<!--                            <div class="form-group @if ($settings->free_photo_upload == 'on') display-none @endif" id="priceBox">-->
+<!--                                <label>({{ $settings->currency_symbol }}) {{ trans('misc.price') }}</label>-->
+<!--                                <input type="number" value="" name="price" class="form-control onlyNumber" autocomplete="off" id="price" placeholder="{{ trans('misc.price') }}">-->
+<!--                                <p class="help-block">-->
+<!--                                    @if (Auth::user()->author_exclusive == 'yes')-->
+<!--                                    * {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission)]) }}-->
+<!--                                    @else-->
+<!--                                    * {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission_non_exclusive)]) }}-->
+<!--                                    @endif-->
+<!--                                </p>-->
+
+<!--                                <div class="alert alert-success">-->
+<!--                                    <h4>{{trans('misc.price_formats')}}</h4>-->
+<!--                                    <ul class="list-unstyled">-->
+<!--                                        <li><strong>{{trans('misc.small_photo_price')}}</strong> {{ $settings->currency_position == 'left' ? $settings->currency_symbol : null }}<span id="s-price">0</span>{{ $settings->currency_position == 'right' ? $settings->currency_symbol : null }}</li>-->
+<!--                                        <li><strong>{{trans('misc.medium_photo_price')}}</strong> {{ $settings->currency_position == 'left' ? $settings->currency_symbol : null }}<span id="m-price">0</span>{{ $settings->currency_position == 'right' ? $settings->currency_symbol : null }}</li>-->
+<!--                                        <li><strong>{{trans('misc.large_photo_price')}}</strong> {{ $settings->currency_position == 'left' ? $settings->currency_symbol : null }}<span id="l-price">0</span>{{ $settings->currency_position == 'right' ? $settings->currency_symbol : null }}</li>-->
+<!--                                        <li><strong>{{trans('misc.vector_photo_price')}}</strong> {{ $settings->currency_position == 'left' ? $settings->currency_symbol : null }}<span id="v-price">0</span>{{ $settings->currency_position == 'right' ? $settings->currency_symbol : null }} {{trans('misc.if_included')}}</li>-->
+<!--                                    </ul>-->
+<!--                                    <small>{{trans('misc.price_maximum')}} {{\App\Helper::amountFormat($settings->max_sale_amount)}} | {{trans('misc.price_minimum')}} {{\App\Helper::amountFormat($settings->min_sale_amount)}}</small>-->
+<!--                                </div>-->
+<!--                            </div>&lt;!&ndash; /.form-group&ndash;&gt;-->
+
+
+                            <!-- Start Form Group -->
+                            <div class="form-group options_free">
+                                <label>How to use image</label>
+                                <select name="how_use_image" class="form-control">
+                                    <option value="free">Use free</option>
+                                    <option value="free_personal">Use free personal</option>
+                                    <option value="editorial_only">Use editorial only</option>
+                                    <option value="web_only">Use web only</option>
+                                </select>
+                            </div><!-- /.form-group-->
+
+                            <!-- Start Form Group -->
+<!--                            <div class="form-group">-->
+<!--                                <label>{{ trans('misc.type_image') }}</label>-->
+<!--                                <select name="type_image" class="form-control" id="typeImage">-->
+<!--                                    <option value="image">{{ trans('misc.image') }}</option>-->
+<!--                                    <option value="vector">{{ trans('misc.type_vector_graphic') }}</option>-->
+<!--                                </select>-->
+
+<!--                                <span class="btn-block display-none" id="vector">-->
+<!--                            <button type="button" class="btn btn-default btn-block" id="upload_file" style="margin-top: 10px;border-style: dashed;padding: 12px;">-->
+<!--                            <i class="fa fa-cloud-upload myicon-right"></i> {{trans('misc.select_vector')}}-->
+<!--                            </button>-->
+
+<!--                              <input type="file" name="file" id="uploadFile" style="visibility: hidden;">-->
+<!--                          </span>-->
+<!--                            </div>&lt;!&ndash; /.form-group&ndash;&gt;-->
+                            <small class="help-block" id="fileDocument"></small>
+
+                            <!-- Start form-group -->
+                            <div class="form-group options_free">
+                                <label>Attribution required</label>
+
+                                <div class="radio">
+                                    <label class="padding-zero">
+                                        <input type="radio" name="attribution_required" value="yes">
+                                        Yes
+                                    </label>
+                                </div>
+
+                                <div class="radio">
+                                    <label class="padding-zero">
+                                        <input type="radio" name="attribution_required" checked="checked" value="no">
+                                        No
+                                    </label>
+                                </div>
+
+                            </div><!-- /.form-group -->
+
+
+                            <div class="form-group">
+                                <label>Description (optional)</label>
+                                <textarea name="description" rows="4" id="description" class="form-control" placeholder="Description"></textarea>
+                            </div>
+
+                            <!-- Alert -->
+                            <div class="alert alert-danger display-none" id="dangerAlert">
+                                <ul class="list-unstyled" id="showErrors"></ul>
+                            </div><!-- Alert -->
+
+                            <div class="box-footer text-center">
+                                <hr />
+                                <button type="submit" id="upload" class="btn btn-lg btn-success custom-rounded" data-msg-processing="Processing" data-error="Error" data-msg-error="Internet disconnected">
+                                    <i class="fa fa-cloud-upload myicon-right"></i> Upload
+                                </button>
+                            </div><!-- /.box-footer -->
+                </form>
+
+            </div>
+        </div>
+
+    </div><!-- wrap-center -->
+
+</div>
+<!-- col-md-12-->
+
+<!--@else-->
+
+<!--<div class="btn-block text-center margin-top-40">-->
+<!--    <i class="icon-warning ico-no-result"></i>-->
+<!--</div>-->
+
+<!--<h3 class="margin-top-none text-center no-result no-result-mg">-->
+<!--    {{trans('misc.limit_uploads_user')}}-->
+<!--</h3>-->
+
+<!--@endif-->
+
+
+<!--@else-->
+<!--<div class="btn-block text-center margin-top-40">-->
+<!--    <i class="icon-warning ico-no-result"></i>-->
+<!--</div>-->
+
+<!--<h3 class="margin-top-none text-center no-result no-result-mg">-->
+<!--    {{trans('misc.confirm_email')}} <strong>{{Auth::user()->email}}</strong>-->
+<!--</h3>-->
+<!--@endif-->
+
+</div><!-- row -->
+</div><!-- container -->
+
+</body>
+
+
+<bottomScript>
+
+    <script th:src="@{{context}plugins/iCheck/icheck.min.js(context=${static_context})}"></script>
+    <script th:src="@{{context}plugins/tagsinput/jquery.tagsinput.min.js(context=${static_context})}"></script>
+
+    <script type="text/javascript">
+
+
+            function verifyFields() {
+
+                var ret = true;
+
+                if(!$.trim($('#title').val()).length) {
+                    $('#title').css({borderColor:'#F00'});
+                    ret = false;
+                } else {
+                    $('#title').css({borderColor:'#ccc'});
+                }
+
+                if(!$.trim($('#tagInput').val()).length) {
+                    $('#tagInput_tagsinput').css({borderColor:'#F00'});
+
+                    ret = false;
+                } else {
+                    $('#tagInput_tagsinput').css({borderColor:'#ccc'});
+                }
+
+                if(!ret) {
+                    $('.popout').addClass('popout-error').html("Fill fields for the form").fadeIn(500).delay(5000).fadeOut();
+                }
+
+                return ret;
+            }
+
+
+
+	//Flat red color scheme for iCheck
+        $('input[type="radio"]').iCheck({
+          radioClass: 'iradio_flat-red'
+        });
+
+        function replaceString(string) {
+        	return string.replace(/[\-\_\.\+]/ig,' ')
+        }
+
+$('#removePhoto').click(function(){
+	 	$('#filePhoto').val('');
+	 	$('#title').val('');
+	 	$('.previewPhoto').css({backgroundImage: 'none'}).hide();
+	 	$('.filer-input-dragDrop').removeClass('hoverClass');
+    $(this).hide();
+	 });
+
+//================== START FILE IMAGE FILE READER
+$("#filePhoto").on('change', function(){
+
+	var loaded = false;
+	if(window.File && window.FileReader && window.FileList && window.Blob){
+		if($(this).val()){ //check empty input filed
+			oFReader = new FileReader(), rFilter = /^(?:image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|image)$/i;
+			if($(this)[0].files.length === 0){return}
+
+
+			var oFile = $(this)[0].files[0];
+			var fsize = $(this)[0].files[0].size; //get file size
+			var ftype = $(this)[0].files[0].type; // get file type
+
+
+			if(!rFilter.test(oFile.type)) {
+				$('#filePhoto').val('');
+				$('.popout').addClass('popout-error').html("Wrong file format").fadeIn(500).delay(5000).fadeOut();
+				return false;
+			}
+
+			var allowed_file_size = 15 * 1024 * 1024;
+
+			if(fsize>allowed_file_size){
+				$('#filePhoto').val('');
+				$('.popout').addClass('popout-error').html("Max filesize: 15MB").fadeIn(500).delay(5000).fadeOut();
+				return false;
+			}
+
+
+			oFReader.onload = function (e) {
+
+				var image = new Image();
+			    image.src = oFReader.result;
+
+				image.onload = function() {
+
+			    	if( image.width < 2500) {
+			    		$('#filePhoto').val('');
+			    		$('.popout').addClass('popout-error').html("Min width 2500px").fadeIn(500).delay(5000).fadeOut();
+			    		return false;
+			    	}
+
+			    	if( image.height < 500 ) {
+			    		$('#filePhoto').val('');
+			    		$('.popout').addClass('popout-error').html("Min height 500px").fadeIn(500).delay(5000).fadeOut();
+			    		return false;
+			    	}
+
+            $('.previewPhoto').css({backgroundImage: 'url('+e.target.result+')'}).show();
+            $('#removePhoto').show();
+			    	$('.filer-input-dragDrop').addClass('hoverClass');
+			    	var _filname =  oFile.name;
+					  var fileName = _filname.substr(0, _filname.lastIndexOf('.'));
+			    	$('#title').val(replaceString(fileName));
+			    };// <<--- image.onload
+
+
+           }
+
+           oFReader.readAsDataURL($(this)[0].files[0]);
+
+		}
+	} else{
+		$('.popout').html('Can\'t upload! Your browser does not support File API! Try again with modern browsers like Chrome or Firefox.').fadeIn(500).delay(5000).fadeOut();
+		return false;
+	}
+});
+
+		$('input[type="file"]').attr('title', window.URL ? ' ' : '');
+
+		$("#tagInput").tagsInput({
+
+		 'delimiter': [','],   // Or a string with a single delimiter. Ex: ';'
+		 'width':'auto',
+		 'height':'auto',
+	     'removeWithBackspace' : true,
+	     'minChars' : 2,
+	     'maxChars' : 50,
+	     'defaultText':'Add tag',
+	     onChange: function() {
+         	var input = $(this).siblings('.tagsinput');
+         	var maxLen = 10;
+
+			if( input.children('span.tag').length >= maxLen){
+			        input.children('div').hide();
+			    }
+			    else{
+			        input.children('div').show();
+			    }
+			},
+	});
+
+  $('#itemForSale').on('change', function() {
+    if($(this).val() == 'sale') {
+			$('#priceBox').slideDown();
+      $('.options_free').slideUp();
+
+		} else {
+				$('#priceBox').slideUp();
+        $('.options_free').slideDown();
+		}
+});
+
+$('#typeImage').on('change', function(){
+  if($(this).val() == 'vector') {
+    $('#vector').slideDown();
+  } else {
+      $('#vector').slideUp('fast');
+      $('#uploadFile').val('');
+      $('#fileDocument').html('');
+  }
+});
+
+
+
+$(".onlyNumber").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+         // Allow: Ctrl+A, Command+A
+        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+         // Allow: home, end, left, right, down, up
+        (e.keyCode >= 35 && e.keyCode <= 40)) {
+             // let it happen, don't do anything
+             return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+
+$(document).on('click','#deleteFile',function () {
+    $('#uploadFile').val('');
+    $('#fileDocument').html('');
+});
+
+//================== START FILE - FILE READER
+$("#uploadFile").change(function() {
+
+	$('#fileDocument').html('');
+
+	var loaded = false;
+	if(window.File && window.FileReader && window.FileList && window.Blob){
+		if($(this).val()){ //check empty input filed
+			if($(this)[0].files.length === 0){return}
+
+			var oFile = $(this)[0].files[0];
+			var fsize = $(this)[0].files[0].size; //get file size
+			var ftype = $(this)[0].files[0].type; // get file type
+
+			var allowed_file_size = 15 * 1024;
+
+			if(fsize>allowed_file_size){
+				$('.popout').addClass('popout-error').html("Max filesize: 15MB").fadeIn(500).delay(4000).fadeOut();
+        $(this).val('');
+				return false;
+			}
+
+			$('#fileDocument').html('<i class="fa fa-paperclip"></i> <strong class="text-info"><em>' + oFile.name + '</em></strong> - <a href="javascript:void(0);" id="deleteFile" class="text-danger">Delete</a>');
+
+		}
+	} else{
+		alert('Can\'t upload! Your browser does not support File API! Try again with modern browsers like Chrome or Firefox.');
+		return false;
+	}
+});
+//================== END FILE - FILE READER ==============>
+
+$('#price').on('keyup', function() {
+
+  var valueOriginal = $('.onlyNumber').val();
+  var value = parseFloat($('.onlyNumber').val());
+  var element = $(this).val();
+
+  if (element != '') {
+
+    if (valueOriginal >= 1 && valueOriginal <= 10) {
+      var amountSmall = value;
+    } else {
+      amountSmall = 0;
+    }
+      var amountMedium = (amountSmall * 2);
+      var amountLarge = (amountSmall * 3);
+      var amountVector = (amountSmall * 4);
+
+
+      $('#s-price').html(amountSmall);
+      $('#m-price').html(amountMedium);
+      $('#l-price').html(amountLarge);
+      $('#v-price').html(amountVector);
+
+  }
+
+  if (valueOriginal == '') {
+    $('#s-price').html('0');
+    $('#m-price').html('0');
+    $('#l-price').html('0');
+    $('#v-price').html('0');
+  }
+});
+</script>
+
+</bottomScript>
+
+<commonHead>
+    <link th:href="@{{context}plugins/iCheck/all.css(context=${static_context})}" rel="stylesheet">
+    <link th:href="@{{context}plugins/tagsinput/jquery.tagsinput.min.css(context=${static_context})}" rel="stylesheet">
+
+</commonHead>

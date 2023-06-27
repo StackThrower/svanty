@@ -1,0 +1,63 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${query}, '')}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site title-sm" th:utext="#{text.search}"></h1>
+		<p class="subtitle-site none-overflow"><strong>"<th:block th:utext="${query}"></th:block>"</strong></p>
+
+		<form role="search" autocomplete="off" th:action="@{/{locale}/search(locale=${locale})}" method="get">
+			<div class="input-group input-group-lg searchBar">
+				<input type="text" autocomplete="off" name="q" class="form-control" th:value="${query}" id="btnItems" placeholder="Найти фото: прим. &#039;Дома&#039;">
+				<span class="input-group-btn">
+                      <button class="btn btn-main btn-flat" type="submit" id="btnSearch">
+                        <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                    </span>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="container-fluid margin-bottom-40">
+	<div class="row">
+		<div class="col-md-12">
+
+			<h2 class="text-center line position-relative none-overflow margin-bottom-30">
+				<th:block th:utext="#{text.result}"></th:block> "<th:block th:utext="${query}"></th:block>"
+			</h2>
+
+
+			<div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult">
+
+				<th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+				<div class="container-paginator">
+					<th:block th:replace="~{module/stock/layout/search-pagination :: pagination (${images}, ${query}, '/search/')}"></th:block>
+				</div>
+
+			</div><!-- Image Flex -->
+
+
+
+		</div><!-- col-md-12 -->
+	</div><!-- row -->
+</div><!-- container -->
+
+</body>
+
+<bottomScript>
+	<script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>
+

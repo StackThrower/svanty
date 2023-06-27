@@ -1,0 +1,914 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.blog}, #{description.blog})}">
+
+
+<body>
+
+<style type="text/css">
+
+.section {
+    margin-right: 30px;
+    margin-left: 30px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.blog-heading-link {
+    margin-bottom: 10px;
+    color: #111;
+    font-size: 14px;
+    line-height: 1.75rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    display:block;
+}
+
+
+.blog-list-wrap {
+    margin-bottom: 100px;
+}
+
+.top-blog-item-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-right: auto;
+    margin-bottom: 80px;
+    margin-left: auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+}
+
+.large-blog-preview-image.cc-mobile {
+    background-image: none;
+}
+.large-blog-preview-image {
+    display: block;
+    width: 480px;
+    height: 320px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    background-image: url(https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg);
+    background-size: cover;
+    -webkit-transition: opacity 600ms ease;
+    transition: opacity 600ms ease;
+}
+.w-inline-block {
+    max-width: 100%;
+    #width:100%;
+    display: inline-block;
+}
+
+.big-blog-heading-link:hover, .blog-heading-link:hover {
+   color:#111;
+}
+
+.big-blog-heading-link.home-page {
+    margin-bottom: 0px;
+    font-size: 36px;
+    line-height: 3.5625rem;
+    text-decoration: none !important;
+}
+.big-blog-heading-link {
+    #margin-bottom: 10px;
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    display:block;
+}
+
+.blog-meta-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.large-blog-summary-wrap {
+    width: 70%;
+    margin-bottom: 20px;
+    margin-left: 60px;
+    text-align: left;
+}
+
+.label.cc-author {
+    margin-left: 3px;
+    font-size: 14px;
+    #line-height: 1rem;
+    font-weight: 600;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.pipe {
+    margin-right: 10px;
+    margin-left: 10px;
+    #font-size: 0.9rem;
+    #line-height: 1rem;
+    font-weight: 400;
+}
+
+.label.cc-published-date {
+    #margin-top: 20px;
+    font-size: 14px;
+    #line-height: 1rem;
+    font-weight: 400;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.label.cc-tag.featured {
+    margin-bottom: 16px;
+}
+.label.cc-tag {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #F00;
+    font-size: 11px;
+    #line-height: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.label {
+    padding: 0.2em 0.2px 0.3em;
+    font-size: 12px;
+    line-height: 27px;
+    font-weight: 500;
+    text-transform: none;
+    text-align:left;
+    color: #111;
+}
+
+.collection-list1 {
+    position: relative;
+    #display: -ms-grid;
+    display: grid;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    #justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: start;
+    #-webkit-align-items: flex-start;
+    #-ms-flex-align: start;
+    align-items: flex-start;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 59px;
+    grid-row-gap: 120px;
+    #-ms-grid-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    #-ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+.standard-blog-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1018px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.blog-preview-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-transition: opacity 600ms ease;
+    transition: opacity 600ms ease;
+}
+
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.paragraph-light {
+    color: #7a7d85;
+    #font-size: 1rem;
+    #line-height: 1.5rem;
+}
+
+
+.heading-jumbo-small.cc-bold {
+    font-size: 2.375rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+    color: #111;
+}
+.heading-jumbo-small {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 1.9rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.chevron {
+   #height: 1rem;
+    margin-bottom: 3px;
+    margin-left: 13px;
+}
+
+.section-heading-wrap {
+ #   display: -webkit-box;
+  #  display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    -webkit-box-align: end;
+   # -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    text-align: left;
+    text-decoration: none !important;
+}
+
+.collection-item {
+    height: 58.3906px;
+    line-height: 28px;
+}
+
+.blog-summary-wrap {
+    max-width: none;
+    #-webkit-align-self: flex-start;
+    #-ms-flex-item-align: start;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.blog-heading-link.cc-mobile {
+    font-size: 16px;
+}
+
+
+.featured-post---2 {
+    #display: -webkit-box;
+    #display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 840px;
+    height: 420px;
+    margin-right: auto;
+    margin-left: auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    #-webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-box-pack: center;
+    #-webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    box-shadow: 0 40px 50px 14px rgb(0 0 0 / 8%);
+    text-decoration: none !important;
+}
+
+.square-post-image {
+    width: 50%;
+    height: 100%;
+}
+
+.featured-post---1 {
+    #display: -webkit-box;
+    #display: -webkit-flex;
+    #display: -ms-flexbox;
+    display: flex;
+    width: 840px;
+    height: 420px;
+    margin-right: auto;
+    margin-left: auto;
+    -webkit-box-pack: center;
+    #-webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    box-shadow: 0 40px 50px 14px rgb(0 0 0 / 8%);
+    text-decoration: none !important;
+}
+
+
+.square-text-wrap {
+    #display: -webkit-box;
+    #display: -webkit-flex;
+    #display: -ms-flexbox;
+    display: flex;
+    width: 50%;
+    height: 100%;
+    padding-right: 60px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    #-webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    #-webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+</style>
+
+<main class="section">
+    <div class="container">
+        <div class="top-blog-items w-dyn-list">
+            <div role="list" class="blog-list-wrap top-post w-dyn-items">
+                <div role="listitem" class="top-blog-item-wrap w-dyn-item">
+                    <a th:href="@{/{locale}/post/{url}(locale=${locale}, url=${mainItem.slug})}"
+                       class="large-blog-preview-image cc-mobile w-inline-block">
+                        <div class="image-placeholder w-condition-invisible"></div>
+                        <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_.png"
+                             loading="eager" alt="ecommerce holiday"
+                             sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 94vw, 480px"
+                             srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61a7eed74df66556d6296edd_7._How_To_Make_The_Most_Of_Your_E_Commerce_Shop_This_Holiday_Season_.png 3000w"
+                             class="thumbnail-image"/></a>
+                    <div class="large-blog-summary-wrap home-page">
+                        <a href="/tag/business-tips" class="w-inline-block">
+                            <!--                        <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+                            <!--                           class="btn btn-danger tags font-default btn-sm">-->
+                            <!--                            бизнес идеи-->
+                            <!--                        </a>-->
+                            <!--                        <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+                            <!--                           class="btn btn-danger tags font-default btn-sm">-->
+                            <!--                            бизнес идеи-->
+                            <!--                        </a>-->
+                        </a>
+                        <a th:href="@{/{locale}/post/{url}(locale=${locale}, url=${mainItem.slug})}"
+                           class="big-blog-heading-link home-page" th:utext="${mainItem.title}"></a>
+                        <div class="blog-meta-wrap">
+                            <div class="author-prefix">By</div>
+                            <div class="label cc-author">Svanty Team</div>
+                            <div class="pipe">|</div>
+                            <div class="label cc-published-date" th:utext="${mainItem.postDate}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-dyn-list">
+            <div role="list" class="collection-list1 w-dyn-items">
+
+                <th:block th:each="blogItem: ${blogItems}">
+                    <div role="listitem" class="standard-blog-item w-dyn-item">
+                        <a th:href="@{/{locale}/post/{url}(locale=${locale}, url=${blogItem.slug})}"
+                           class="blog-preview-image w-inline-block">
+                            <div class="image-placeholder w-condition-invisible">
+                            </div>
+                            <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples.png"
+                                 loading="eager" alt="resume design"
+                                 sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"
+                                 srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61b0c43ad65b41e44677cfbe_3_%206%20resume%20design%20tips%20and%20examples.png 3000w"
+                                 class="thumbnail-image"/>
+                        </a>
+                        <div class="blog-summary-wrap">
+                            <a href="/tag/resume-design" class="w-inline-block">
+                                <!--                        <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+                                <!--                           class="btn btn-danger tags font-default btn-sm">-->
+                                <!--                            бизнес идеи-->
+                                <!--                        </a>-->
+                            </a>
+                            <a th:href="@{/{locale}/post/{url}(locale=${locale}, url=${blogItem.slug})}"
+                               class="blog-heading-link cc-mobile" th:utext="${blogItem.title}"></a>
+                            <div class="paragraph-light" th:utext="${blogItem.description}"></div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</main>
+<!--<div class="section cc-top-padding-40">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="collection-item w-dyn-item">-->
+<!--                    <div class="title-link-div"><a href="#" class="section-heading-wrap w-inline-block"><h2-->
+<!--                            class="heading-jumbo-small cc-bold">News</h2><img-->
+<!--                            src="https://assets-global.website-files.com/606a802fcaa89ba7b0508c95/606a802fcaa89b5c08508cce_Chevron.svg"-->
+<!--                            loading="lazy" alt="" class="chevron home-page"/></a></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="collection-list1 w-dyn-items">-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6099cd6c03dbc1f7e26a261b_Blog-1.png"-->
+<!--                         loading="eager" alt=""-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6099cd6c03dbc1f7e26a261b_Blog-1-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6099cd6c03dbc1f7e26a261b_Blog-1-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6099cd6c03dbc1f7e26a261b_Blog-1-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6099cd6c03dbc1f7e26a261b_Blog-1.png 1392w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи2-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link cc-mobile">Semi-Annual Small Business Needs Index: Strength and-->
+<!--                            Optimism is Still Present</a>-->
+<!--                        <div class="paragraph-light">Businesses are building back and finding new ways to reach their-->
+<!--                            customers.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#" class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b088d6dc711209719d2a_1200x600-Blog_1.jpeg"-->
+<!--                         loading="eager" alt=""-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b088d6dc711209719d2a_1200x600-Blog_1-p-500.jpeg 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b088d6dc711209719d2a_1200x600-Blog_1-p-800.jpeg 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b088d6dc711209719d2a_1200x600-Blog_1-p-1080.jpeg 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b088d6dc711209719d2a_1200x600-Blog_1.jpeg 1200w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#" class="blog-heading-link cc-mobile">Introducing-->
+<!--                            Fiverr&#x27;s Fashion Store</a>-->
+<!--                        <div class="paragraph-light">Now you can use Fiverr’s new Fashion Design services to grow your-->
+<!--                            business from idea to implementation.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a href="#"-->
+<!--                                                                              class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b089462418ef33b63b12_Facebook-Cover-2.jpeg"-->
+<!--                         loading="eager" alt=""-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b089462418ef33b63b12_Facebook-Cover-2-p-500.jpeg 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b089462418ef33b63b12_Facebook-Cover-2-p-800.jpeg 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b089462418ef33b63b12_Facebook-Cover-2-p-1600.jpeg 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b089462418ef33b63b12_Facebook-Cover-2.jpeg 1920w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#" class="blog-heading-link cc-mobile">It Starts Here</a>-->
+<!--                        <div class="paragraph-light">Our new brand campaign, “It Starts Here”, was inspired by our-->
+<!--                            mission to change how the world works and the need for digital transformation.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="section banner-section">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="w-dyn-item"><a href="#"-->
+<!--                                                           class="featured-post-&#45;&#45;1 w-inline-block">-->
+<!--                    <div class="square-post-image">-->
+<!--                        <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                        <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6070b0016932223adbd79ab2_sddefault-2.jpeg"-->
+<!--                             loading="eager" alt="" class="thumbnail-image"/></div>-->
+<!--                    <div class="square-text-wrap">-->
+<!--                        <div class="blog-heading-link cc-mobile">Here&#x27;s to Writing a New Chapter; From Fiverr CEO-->
+<!--                        </div>-->
+<!--                        <div class="paragraph-light">We believe that 2020 marks the beginning of a decade in which-->
+<!--                            freelancing will take another step forward.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </a></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="section">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="collection-item w-dyn-item">-->
+<!--                    <div class="title-link-div"><a href="#"-->
+<!--                                                   class="section-heading-wrap w-inline-block"><h2-->
+<!--                            class="heading-jumbo-small cc-bold">Businesses</h2><img-->
+<!--                            src="https://assets-global.website-files.com/606a802fcaa89ba7b0508c95/606a802fcaa89b5c08508cce_Chevron.svg"-->
+<!--                            loading="lazy" alt="" class="chevron home-page"/></a></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="collection-list1 w-dyn-items">-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#" class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2.png"-->
+<!--                         loading="eager" alt="HTML"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/61857819ee8e096f5621c878_E5E2E746-C973-4BB1-80BF-0C390EBD63E2.png 3000w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+
+<!--                        <a href="#" class="blog-heading-link cc-mobile">HTML-->
+<!--                            Symbols, Entities and Codes</a>-->
+<!--                        <div class="paragraph-light">If the idea of coding seems intimidating, don&#x27;t worry. Once-->
+<!--                            you understand the basics, it will come as second nature. Here&#x27;s a closer look at what-->
+<!--                            you&#x27;ll need to know.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618570e081ed088566db2780_HubStaff.png"-->
+<!--                         loading="eager" alt="remote work"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618570e081ed088566db2780_HubStaff-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618570e081ed088566db2780_HubStaff-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618570e081ed088566db2780_HubStaff.png 1000w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link cc-mobile">5 Common Remote Team Challenges and How to Deal with-->
+<!--                            Them</a>-->
+<!--                        <div class="paragraph-light">Remote team work has its set of challenges, but Hubstaff and Fiverr-->
+<!--                            are two platforms you can use to solve a number of those issues.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C.png"-->
+<!--                         loading="eager" alt="HTML Arrows"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6160543a004c7ee94cc8e583_78ACF718-BEA3-4743-AFE2-75CD7C8DA73C.png 3000w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link cc-mobile">HTML Arrows: What They Are and How to Use Them</a>-->
+<!--                        <div class="paragraph-light">Custom HTML can do wonders for SEO and the general aesthetic of a-->
+<!--                            web document, whether you&#x27;re creating custom infographics, a landing page, or building-->
+<!--                            a website.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="section banner-section">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="featured-post-&#45;&#45;2 w-inline-block">-->
+<!--                    <div class="square-post-image">-->
+<!--                        <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                        <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8.png"-->
+<!--                             loading="eager" alt="HTTP2"-->
+<!--                             sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 47vw, 420px"-->
+<!--                             srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8-p-3200.png 3200w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/6114353ac97521b4c145f997_8.png 4312w"-->
+<!--                             class="thumbnail-image"/></div>-->
+<!--                    <div class="square-text-wrap">-->
+<!--                        <div class="blog-heading-link cc-mobile">HTTP2: Is Your Site Using It? Here&#x27;s How You Can-->
+<!--                            Check-->
+<!--                        </div>-->
+<!--                        <div class="paragraph-light">Not sure if your site is using HTTP/2? Here is how to check and add-->
+<!--                            it if your website is not currently supported.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </a></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="section">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="collection-item w-dyn-item">-->
+<!--                    <div class="title-link-div"><a href="#"-->
+<!--                                                   class="section-heading-wrap w-inline-block"><h2-->
+<!--                            class="heading-jumbo-small cc-bold">Freelancers</h2><img-->
+<!--                            src="https://assets-global.website-files.com/606a802fcaa89ba7b0508c95/606a802fcaa89b5c08508cce_Chevron.svg"-->
+<!--                            loading="lazy" alt="" class="chevron home-page"/></a></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="collection-list1 w-dyn-items">-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#" class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png"-->
+<!--                         loading="eager" alt="software design"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png 3000w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#" class="blog-heading-link cc-mobile">How-->
+<!--                        to Write Software Design Documents</a>-->
+<!--                        <div class="paragraph-light">Learn how to write software design documents that improve-->
+<!--                            communication between you and your client, ensuring that everyone is on the same page when-->
+<!--                            working on a project.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder"></div>-->
+
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png"-->
+<!--                         loading="eager" alt="software design"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png 3000w"-->
+<!--                         class="thumbnail-image"/>-->
+
+<!--                </a>-->
+<!--                    <div class="blog-summary-wrap"><div class="w-inline-block">-->
+<!--                        <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                           class="btn btn-danger tags font-default btn-sm">-->
+<!--                            графичекий дизайн-->
+<!--                        </a>-->
+<!--                        <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                           class="btn btn-danger tags font-default btn-sm">-->
+<!--                            бизнес идеи-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link cc-mobile">Angular vs. React: Which Is Better for Web-->
+<!--                        Development</a>-->
+<!--                        <div class="paragraph-light">A discussion of the primary differences between Angular and React-->
+<!--                            JS so you can decide which is a better option for you.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#" class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png"-->
+<!--                         loading="eager" alt="software design"-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-500.png 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-800.png 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1080.png 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-1600.png 1600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2000.png 2000w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents-p-2600.png 2600w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/618a84dd81bcc9079d954307_10._How_To_Write_Software_Design_Documents.png 3000w"-->
+<!--                         class="thumbnail-image">-->
+<!--                </a>-->
+
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#" class="blog-heading-link cc-mobile">Songwriting:-->
+<!--                        5 Ways to Get Inspired</a>-->
+<!--                        <div class="paragraph-light">Songwriting can be an elusive form of art.-->
+<!--                            Some writers enjoy creating alone... Others depend on their peers for a spark of-->
+<!--                            inspiration.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="section">-->
+<!--    <div class="container">-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="w-dyn-items">-->
+<!--                <div role="listitem" class="collection-item w-dyn-item">-->
+<!--                    <div class="title-link-div"><a href="#"-->
+<!--                                                   class="section-heading-wrap w-inline-block"><h2-->
+<!--                            class="heading-jumbo-small cc-bold">Case Studies</h2><img-->
+<!--                            src="https://assets-global.website-files.com/606a802fcaa89ba7b0508c95/606a802fcaa89b5c08508cce_Chevron.svg"-->
+<!--                            loading="lazy" alt="" class="chevron"/></a></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="w-dyn-list">-->
+<!--            <div role="list" class="collection-list1 w-dyn-items">-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e8546315ee582132dbbb10_case-study-full-width1.jpg"-->
+<!--                         loading="eager" alt="visual identity "-->
+<!--                         sizes="(max-width: 479px) 94vw, (max-width: 767px) 96vw, (max-width: 991px) 29vw, 27vw"-->
+<!--                         srcset="https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e8546315ee582132dbbb10_case-study-full-width1-p-500.jpeg 500w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e8546315ee582132dbbb10_case-study-full-width1-p-800.jpeg 800w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e8546315ee582132dbbb10_case-study-full-width1-p-1080.jpeg 1080w, https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e8546315ee582132dbbb10_case-study-full-width1.jpg 1440w"-->
+<!--                         class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link">Zach &amp; David of ABC Beer Company: Neighborhood Bar &amp; Beer-->
+<!--                            Store</a>-->
+<!--                        <div class="paragraph-light">When foot traffic was unexpectedly eliminated, ABC Beer Co. had to-->
+<!--                            get creative. By adapting their retail model, they continue to grow in this new digital-->
+<!--                            normal.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e84f525181656d12f1c4ba_CaseStudy_Image-Block_Bravo-Java.png"-->
+<!--                         loading="eager" alt="digital marketing" class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#" class="blog-heading-link">Ana Bravo-->
+<!--                            of Bravo Java: Heritage Shoe Brand </a>-->
+<!--                        <div class="paragraph-light">Bravo Java, a shoe company, found the silver lining in a global-->
+<!--                            pandemic and used the opportunity to update their digital marketing efforts and refresh-->
+<!--                            their brand.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div role="listitem" class="standard-blog-item w-dyn-item"><a-->
+<!--                        href="#"-->
+<!--                        class="blog-preview-image w-inline-block">-->
+<!--                    <div class="image-placeholder w-condition-invisible"></div>-->
+<!--                    <img src="https://assets-global.website-files.com/606a802fcaa89bc357508cad/60e887e1cda62b432ac7535d_CaseStudy_Image-Block_Bread-In-Captivity.png"-->
+<!--                         loading="eager" alt="youtube" class="thumbnail-image"/></a>-->
+<!--                    <div class="blog-summary-wrap">-->
+<!--                        <div class="w-inline-block">-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                графичекий дизайн-->
+<!--                            </a>-->
+<!--                            <a href="/tags/%D1%82%D1%80%D0%B0%D0%B2%D0%B0"-->
+<!--                               class="btn btn-danger tags font-default btn-sm">-->
+<!--                                бизнес идеи-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <a href="#"-->
+<!--                           class="blog-heading-link">Danielle Lemieux of BREAD IN CAPTIVITY: Sourdough-Baking YouTube-->
+<!--                            Series</a>-->
+<!--                        <div class="paragraph-light">Danielle Lemieux, creator of Bread in Captivity, hired Fiverr-->
+<!--                            sellers to create the foundation for a high-performing YouTube series.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+
+
+<bottomScript>
+    <script type="text/javascript">
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

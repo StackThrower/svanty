@@ -1,0 +1,583 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${account.name}, '')}">
+
+<body>
+
+<div class="container margin-top-40 margin-bottom-40">
+
+    <div class="col-60">
+
+        <div class="bio">
+            <div class="bio-col-left">
+                <div class="avatar-background">
+                    <img th:src="@{https://svanty.com/public/uploads/avatar/{avatar}(avatar=${account.avatar})}"
+                         class="img-avatar"/>
+                </div>
+            </div>
+            <div class="bio-col-right">
+                <ul class="nav nav-pills counter">
+
+                    <li>
+                        <small class="btn-block sm-btn-size text-left counter-sm">0</small>
+                        <span class="text-muted">Фотографии</span>
+                    </li><!-- End Li -->
+                    <li>
+                        <small class="btn-block sm-btn-size text-left counter-sm">0</small>
+                        <span class="text-muted">Продажи</span>
+                    </li><!-- End Li -->
+                    <li>
+                        <small class="btn-block sm-btn-size text-left counter-sm">0</small>
+                        <span class="text-muted">Заказы</span>
+                    </li><!-- End Li -->
+
+                    <li>
+                        <small class="btn-block sm-btn-size text-left counter-sm">0</small>
+                        <span class="text-muted link-nav-user">Подписчики</span>
+                    </li><!-- End Li -->
+                </ul>
+                <div class="personal-data personal-data-top-20">
+                    <div class="personal-data-left">
+                        <h1 class="full-name" th:utext="${account.name}"></h1>
+                    </div>
+                    <div class="personal-data-right">
+                        <div class="username-label">@
+                            <th:block th:utext="${account.username}"></th:block>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="personal-data">
+                        <div class="personal-data-left">
+                            <span class="location">Bruges, Belgium</span>
+                        </div>
+                        <div class="personal-data-right">
+                            <span class="since"><i class="fa fa-calendar"></i> 2023-01-04</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-div">
+                    <ul class="list-inline">
+                        <li><a href="https://www.facebook.com/svantystock" target="_blank" class="ico-social"><i
+                                class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/svanty_stock" target="_blank" class="ico-social"><i
+                                class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCt113ZIYWIahLTCS_pqTWew" target="_blank"
+                               class="ico-social"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="https://t.me/svanty_stock" target="_blank" class="ico-social"><i
+                                class="fa fa-send"></i></a></li>
+                    </ul>
+                </div>
+
+
+                <div style="clear:both;">
+                    <ul class="nav nav-pills counter counter-left">
+
+                        <li>
+                            <i class="fa fain fa-camera" style="color: #777"></i>
+                            <span>photographer</span>
+                        </li><!-- End Li -->
+                        <li>
+                            <i class="fa fain fa-share" style="color: #337ab7"></i>
+                            <span>svanty.com</span>
+                        </li><!-- End Li -->
+                        <li>
+                            <i class="fa fain fa-heart" style="color: #F00 "></i>
+                            <span>Subscribe</span>
+                        </li><!-- End Li -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="i-can-speak-div">
+                <i class="fa fain fa-flag" style="color: #777"></i>
+                <span class="speak-italic">I can speak dutch, english, spanish, turkish, german.</span>
+            </div><!-- End Li -->
+
+            <div class="description">
+                No fancy salestalk; I let my portfolio speak for me... Nominated for Svanty's wedding photographer of the year 2016, 2017 & 2018. Available to shoot around the world...
+            </div><!-- End Li -->
+
+            <div style="width: 100%; text-align:center;margin-top:35px;">
+                <span class="price-label">Average shooting price: <b>300 EUR</b> per hour</span> <span class="price-label-per-hour">1 hour minimum</span>
+            </div>
+
+
+            <div style="width: 100%; text-align:center;margin-top:35px;">
+                <a th:href="@{/{locale}/signup(locale=${locale})}" class="btn btn-lg btn-success custom-rounded">Send Request</a>
+                <a th:href="@{/{locale}/signup(locale=${locale})}" class="btn btn-lg btn-phone-number custom-rounded"><div style="display:block;font-size:small;">Show the number</div><div style="display:block;font-size:small;">+32 468 01 90•••</div></a>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="col-40">
+
+        <div class="background-cover">
+            <img th:src="@{https://svanty.com/public/uploads/cover/{cover}(cover=${account.cover})}"
+                 class="img-cover"/>
+
+        </div>
+    </div>
+
+    <div class="col-100">
+
+        <div class="collection-list">
+            <div class="collection-line">
+                <div class="collection-title-box collection-title-box-active">Feed</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/solnechnyy-trosnik-51637853637wmtzwqllxm.jpeg"
+                         class="img-collection"/>
+                </div>
+            </div>
+            <div class="collection-line">
+                <div class="collection-title-box">Couples</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/tanets-na-ulitse-1216342910150xcqur1je7.jpg"
+                         class="img-collection"/>
+                </div>
+            </div>
+            <div class="collection-line">
+                <div class="collection-title-box">Wedding</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/FW23ogg8J1iKBhhlhUCXzKcqsJ1nlRv0BEOHQXAuEHatjMLGg2CWxKz9DN0PZJz5jSnhlIt3NTbhtaGKBbPvR6WON2.jpg"
+                         class="img-collection"/>
+                </div>
+            </div>
+            <div class="collection-line">
+                <div class="collection-title-box">Love story</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/ly3utgwtlJ2igXCYwdsBPOhzoWRjmYei6Z5j8Is4knLPSZ72S9vbhCbTcy84vWwxALoktNv3mRnpFIeImlbGXvO0AO.jpg"
+                         class="img-collection"/>
+                </div>
+            </div>
+            <div class="collection-line">
+                <div class="collection-title-box">Staff</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/iKATmRB7KT7YCKp1m7U2OKODMO94ZSHWUqn0n6YhhXIjv5oyMb4EgiEGLWPS1iYNCfixKzw5ZWbZKpRzglHOywsCuw.jpeg"
+                         class="img-collection"/>
+                </div>
+            </div>
+            <div class="collection-line">
+                <div class="collection-title-box">Landscape</div>
+                <div class="collection-background">
+                    <img src="https://svanty.com/public/uploads/preview/zcIuG1bhpwmlO2JG8I9cejb629qlMvTKTQs14r037qtfPga2iZnux997JNw2eHFMUVfiCe1i11hosLjsyUMlx4Q96f.jpeg"
+                         class="img-collection"/>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult"
+         style="padding-top: 40px">
+
+        <th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+        <div class="container-paginator">
+            <th:block
+                    th:replace="~{module/stock/layout/pagination :: pagination (${images}, '/account/' + ${account.username})}"></th:block>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+
+
+<bottomScript>
+    <script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+
+
+    </script>
+</bottomScript>
+
+<commonHead>
+    <style>
+        .col-60 {
+           float: left;
+           width: 60%;
+           position: relative;
+           min-height: 1px;
+        }
+
+        .col-40 {
+           float: left;
+           width: 40%;
+           position: relative;
+           min-height: 1px;
+        }
+
+        .bio {
+           width: 670px;
+           margin-top:48px;
+        }
+
+        .bio-col-left {
+           width: 225px;
+           height: 208px;
+           float: left;
+        }
+
+        .bio-col-right {
+            float: left;
+        }
+
+        .personal-data {
+            width: 420px;
+        }
+
+        .personal-data-top-20 {
+            margin-top: 20px;
+        }
+
+        .personal-data-left {
+            width: 250px;
+            float: left;
+        }
+
+        .personal-data-right {
+            float: left;
+        }
+
+
+        .full-name {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .counter {
+            width: 100%;
+        }
+
+        .counter li {
+            margin-right: 15px;
+            border-right: 1px solid #DDD;
+            padding-right: 15px;
+        }
+
+        .counter li:last-child {
+            border: none;
+        }
+
+        .img-avatar {
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 75px;
+            border-bottom-right-radius: 75px;
+            border-top-right-radius: 75px;
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .avatar-background {
+            position: relative;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 75px;
+            border-bottom-right-radius: 75px;
+            border-top-right-radius: 75px;
+            border: 1px solid #D9D9D9;
+            width: 200px;
+            height: 199px;
+        }
+
+        .img-cover {
+            width: 400px;
+            height: 355px;
+            object-fit:cover;
+
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+
+            position: absolute;
+            left: -35px;
+            bottom: 100px;
+
+        }
+
+        .background-cover {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #D9D9D9;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-left: 35px;
+            position: relative;
+            float: right;
+            margin-right: 7px;
+        }
+
+        .username-label {
+            color: #777;
+            margin-top: 22px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .location {
+            font-size: 16px;
+            color: #777;
+        }
+        .since {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .fain {
+            margin-right: 5px;
+        }
+
+
+      .border-md5 {
+           border: 1px solid black;
+      }
+
+      .price-label {
+        font-size: 17px;
+      }
+
+      .price-label-per-hour {
+        font-size: 13px;
+        color: #777;
+      }
+
+
+      .fa {
+        font-size: 17px;
+      }
+
+      .btn-phone-number {
+        border: 1px solid #777;
+        color: #777;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .btn {
+        margin-left: 5px;
+        min-width: 300px;
+      }
+
+      .custom-rounded {
+        border-radius: 10px;
+      }
+
+      .speak-italic {
+        font-style:italic;
+      }
+
+      .col-100 {
+        padding-top: 40px;
+        width: 100%;
+        clear: both;
+      }
+
+
+      .collection-background {
+            margin-top:5px;
+            position: relative;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 75px;
+            border-bottom-right-radius: 75px;
+            border-top-right-radius: 75px;
+            border: 1px solid #D9D9D9;
+            width: 100px;
+            height: 99px;
+      }
+
+
+      .img-collection {
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 75px;
+            border-bottom-right-radius: 75px;
+            border-top-right-radius: 75px;
+            position: absolute;
+            right: -10px;
+            bottom: -6px;
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .collection-list {
+              overflow-x: auto;
+              overflow-y: hidden;
+              white-space: nowrap;
+        }
+
+        .collection-line {
+            display: inline-block;
+            margin-right: 100px;
+        }
+
+        .collection-title-box {
+            background-color: grey;
+            border-radius: 9px;
+            text-align: center;
+            color: white;
+            padding: 6px;
+        }
+
+        .collection-title-box-active {
+            background-color: #337ab7;
+        }
+
+        .i-can-speak-div {
+            padding-top: 4px;
+            clear:both;
+        }
+
+        .description {
+          width: 90%;
+          clear:both;
+          margin-top:9px;
+        }
+
+        .social-div {
+            clear:both;
+            padding-top: 20px;
+        }
+
+
+        @media screen and (max-width: 767px) {
+          .col-60 {
+            width: 100%;
+          }
+          .col-40 {
+            display: none;
+          }
+
+          .avatar-background {
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 75px;
+                border-bottom-right-radius: 75px;
+                border-top-right-radius: 75px;
+                width: 100px;
+                height: 99px;
+            }
+
+
+            .img-avatar {
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 75px;
+                border-bottom-right-radius: 75px;
+                border-top-right-radius: 75px;
+                right: -5px;
+                bottom: -5px;
+                width: 85px;
+                height: 85px;
+            }
+
+            .bio-col-left {
+                margin: auto;
+                width: 110px;
+                height: 104px;
+                float: none;
+            }
+
+            .margin-top-40 {
+                margin-top: 20px !important;
+            }
+
+            .bio {
+                width: 100%;
+                margin-top: 0;
+            }
+
+            .bio-col-right {
+                float: none;
+            }
+
+            .counter li {
+                display: table-cell;
+                float: none;
+                margin-left: 6px;
+                text-align: center;
+                margin-right: 6px;
+                padding-right: 6px;
+                padding-left: 6px;
+           }
+
+            .counter {
+                padding-top: 10px;
+                display:table;
+                width:100%;
+                box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                -webkit-box-sizing:border-box;
+
+            }
+
+            .price-label-per-hour {
+                display: block;
+            }
+
+            .btn {
+                display: block;
+                margin-top: 7px;
+                margin-left: auto;
+                min-width: 90%;
+            }
+
+            .personal-data-top-20 {
+                margin-top: 0;
+            }
+
+            .i-can-speak-div {
+                padding-top: 8px;
+            }
+
+            .description {
+                width: 100%;
+                margin-top:7px;
+            }
+
+            .counter li:last-child {
+                margin-right: 0;
+                padding-right: 0;
+            }
+
+            .counter-left {
+                display: block;
+                padding: 0;
+            }
+
+            .counter-left li{
+                display: block;
+                float: left;
+                text-align: left;
+                margin: auto;
+                padding-right: 15px;
+            }
+
+            .counter-left li:first-child {
+                padding-left: 0;
+            }
+
+
+            .social-div {
+
+            }
+
+        }
+
+
+
+
+
+    </style>
+</commonHead>

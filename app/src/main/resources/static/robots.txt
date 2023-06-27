@@ -1,0 +1,18 @@
+User-agent: *
+Host: https://svanty.com
+Sitemap: https://svanty.com/public/sitemaps/index.xml
+
+Disallow: /*/members
+Disallow: /*/collections
+Disallow: /*/featured
+Disallow: /*/latest
+Disallow: /*/photos/premium
+Disallow: /*/most
+Disallow: /*/category
+Disallow: /*/colors/*
+Disallow: /*?timeframe=
+Disallow: /*?page=
+allow: /*/tag/*
+allow: /*/post/*
+allow: /*/cameras/*
+allow: /*/photo/*

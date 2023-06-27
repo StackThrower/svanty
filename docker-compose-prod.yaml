@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+  app_svanty8080:
+    restart: always
+    build: ./app
+    container_name: main-app8080
+    working_dir: /app
+    volumes:
+      - /var/www/svanty.com/public/uploads:/uploads
+      - /var/www/svanty.com/public/sitemaps:/sitemaps
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      DB_HOST: host.docker.internal
+      WEB_CONTEXT: "/public/"
+      APP_UPLOADS_PATH: "/uploads"
+      APP_SITEMAP_PATH: "/sitemaps"
+      APP_SHOW_SQL_IN_DEBUG: "false"
+      APP_ACTIVE_PROFILE: "production"
+      APP_PORT: "8080"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  app_svanty8090:
+    restart: always
+    build: ./app
+    container_name: main-app8090
+    working_dir: /app
+    volumes:
+      - /var/www/svanty.com/public/uploads:/uploads
+      - /var/www/svanty.com/public/sitemaps:/sitemaps
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      DB_HOST: host.docker.internal
+      WEB_CONTEXT: "/public/"
+      APP_UPLOADS_PATH: "/uploads"
+      APP_SITEMAP_PATH: "/sitemaps"
+      APP_SHOW_SQL_IN_DEBUG: "false"
+      APP_ACTIVE_PROFILE: "production"
+      APP_PORT: "8090"
+    extra_hosts:
+      - host.docker.internal:host-gateway

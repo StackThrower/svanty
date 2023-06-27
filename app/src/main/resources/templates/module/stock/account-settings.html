@@ -1,0 +1,303 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.account-settings}, '')}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site title-sm" th:utext="#{title.account-settings}"></h1>
+    </div>
+</div>
+
+<div class="container margin-bottom-40">
+
+    <!-- Col MD -->
+    <div class="col-md-12">
+
+        <div class="wrap-center center-block">
+
+            <div th:if="${isSuccessful}" class="alert alert-success btn-sm alert-fonts" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <span th:utext="#{text.operation-successful}"></span>
+            </div>
+
+            <form action="" th:object="${accountSettingsForm}" method="post" name="form" enctype="multipart/form-data">
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <!-- Start Box Body -->
+                <div class="box-body" th:if="${#fields.hasErrors()}">
+                    <div class="alert alert-danger" id="dangerAlert">
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+
+                        <i class="glyphicon glyphicon-alert myicon-right"></i> <span th:utext="#{text.error-with-input}"></span> <br><br>
+                        <ul class="list-unstyled">
+
+                            <li th:if="${#fields.hasErrors('name')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{name}"></span></li>
+
+                            <li th:if="${#fields.hasErrors('avatar')}"><i class="glyphicon glyphicon-remove myicon-right"></i> <span th:errors="*{avatar}"></span></li>
+
+                        </ul>
+                    </div>
+                </div><!-- /.box-body -->
+
+                <ul class="nav nav-pills nav-justified margin-bottom-20">
+                    <li>
+                        <!-- **** list-group-item **** -->
+                        <a th:href="@{/{locale}/settings/account(locale=${locale})}" class="list-group-item font-default myicon-right active">
+                            <i class="fa fa-pencil myicon-right"></i> <th:block th:utext="#{subtitle.account-settings}"></th:block>
+                        </a> <!-- **** ./ list-group-item **** -->
+                    </li>
+
+                    <li>
+                        <!-- **** list-group-item **** -->
+                        <a th:href="@{/{locale}/settings/password(locale=${locale})}" class="list-group-item font-default myicon-right">
+                            <i class="fa fa-lock myicon-right"></i> <th:block th:utext="#{subtitle.password}"></th:block>
+                        </a> <!-- **** ./ list-group-item **** -->
+                    </li>
+                    <li>
+                        <!-- **** list-group-item **** -->
+                        <a th:href="@{/{locale}/settings/portfolio(locale=${locale})}" class="list-group-item font-default">
+                            <i class="fa fa-magic myicon-right"></i> <th:block th:utext="#{subtitle.portfolio}"></th:block>
+                        </a> <!-- **** ./ list-group-item **** -->
+                    </li>
+                </ul>
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.user-full-name}"></label>
+                    <input type="text" class="form-control login-field custom-rounded"
+                           th:field="*{name}" name="name"
+                           th:placeholder="#{field.user-full-name}" th:title="#{field.user-full-name}"
+                           autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- ***** Form Group ***** -->
+                        <div class="form-group has-feedback">
+                            <label class="font-default" th:utext="#{field.username}"></label>
+                            <input readonly type="text" class="form-control login-field custom-rounded"
+                                   th:field="*{username}" name="username"
+                                   th:placeholder="#{field.username}"
+                                   th:title="#{field.username}"
+                                   autocomplete="off">
+                        </div><!-- ***** Form Group ***** -->
+                    </div><!-- End Col MD-->
+
+                    <div class="col-md-6">
+                        <!-- ***** Form Group ***** -->
+                        <div class="form-group has-feedback">
+                            <label class="font-default" th:utext="#{field.email}"></label>
+                            <input readonly type="email" class="form-control login-field custom-rounded"
+                                   th:placeholder="#{field.email}" th:title="#{field.email}" th:field="*{email}"
+                                   autocomplete="off">
+                        </div><!-- ***** Form Group ***** -->
+                    </div><!-- End Col MD-->
+
+                </div><!-- End row -->
+
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.avatar}"></label>
+                    <span class="btn-block">
+                        <button type="button" class="btn btn-default btn-block" id="upload_file1"
+                                style="border-style: dashed;padding: 12px;">
+                        <i class="fa fa-cloud-upload myicon-right"></i> <th:block th:utext="#{text.select-file}"></th:block>
+                        </button>
+
+                          <input type="file" name="avatar" id="uploadFile1" style="visibility: hidden;">
+                      </span>
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.background}"></label>
+                    <span class="btn-block">
+                            <button type="button" class="btn btn-default btn-block" id="upload_file2"
+                                    style="border-style: dashed;padding: 12px;">
+                            <i class="fa fa-cloud-upload myicon-right"></i> <th:block th:utext="#{text.select-file}"></th:block>
+                            </button>
+
+                              <input type="file" name="background" id="uploadFile2" style="visibility: hidden;">
+                          </span>
+                </div><!-- ***** Form Group ***** -->
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- ***** Form Group ***** -->
+                        <div class="form-group has-feedback">
+                            <label class="font-default" th:utext="#{field.country}"></label>
+                            <select name="countries_id" class="form-control">
+                                <option value="1">USA</option>
+                            </select>
+                        </div><!-- ***** Form Group ***** -->
+                    </div><!-- End Col MD-->
+
+                    <div class="col-md-6">
+                        <!-- ***** Form Group ***** -->
+                        <div class="form-group has-feedback">
+                            <label class="font-default" th:utext="#{field.city}"></label>
+                            <input type="text" class="form-control login-field custom-rounded"
+                                   th:field="*{city}" name="city"
+                                   th:placeholder="#{field.city}"
+                                   th:title="#{field.city}"
+                                   autocomplete="off">
+                        </div><!-- ***** Form Group ***** -->
+                    </div><!-- End Col MD-->
+
+
+                </div><!-- End row -->
+
+
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.language}"></label>
+                    <select name="author_exclusive" class="form-control" id="authorExclusive">
+                        <option
+                                value="1">english
+                        </option>
+                        <option
+                                value="2">spanish
+                        </option>
+                    </select>
+                </div><!-- ***** Form Group ***** -->
+
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.exclusivity}"></label>
+                    <select name="author_exclusive" class="form-control" id="authorExclusive">
+                        <option value="yes">yes
+                        </option>
+                        <option value="no">no
+                        </option>
+                    </select>
+                    <p class="help-block" id="percentage">
+                    </p>
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.paypal-account}"></label>
+                    <input type="text" class="form-control login-field custom-rounded"
+                           th:field="*{paypal_account}" name="paypal_account"
+                           th:placeholder="#{field.paypal-account}"
+                           th:title="#{field.paypal-account}"
+                           autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.website}"></label>
+                    <input type="text" class="form-control login-field custom-rounded" value="{{Auth::user()->website}}"
+                           th:field="*{website}" name="website"
+                           th:placeholder="#{field.website}"
+                           th:title="#{field.website}"
+                           autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default">Facebook</label>
+                    <input type="text" class="form-control login-field custom-rounded"
+                           th:field="*{facebook}" name="facebook"
+                           placeholder="https://www.facebook.com/username"
+                           title="https://www.facebook.com/Username"
+                           autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default">Twitter</label>
+                    <input type="text" class="form-control login-field custom-rounded"
+                           th:field="*{twitter}"
+                           name="twitter"
+                           placeholder="https://www.twitter.com/username"
+                           title="https://www.twitter.com/Username" autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default">Instagram</label>
+                    <input type="text" class="form-control login-field custom-rounded"
+                           th:field="*{instagram}" name="instagram"
+                           placeholder="https://instagram.com/username" title="https://instagram.com/username"
+                           autocomplete="off">
+                </div><!-- ***** Form Group ***** -->
+
+                <!-- ***** Form Group ***** -->
+                <div class="form-group has-feedback">
+                    <label class="font-default" th:utext="#{field.description}"></label>
+                    <textarea name="description" rows="4" id="bio" class="form-control login-field custom-rounded" th:field="*{bio}" th:utext="*{bio}"></textarea>
+                </div><!-- ***** Form Group ***** -->
+
+
+                <button type="submit" id="buttonSubmit" class="btn btn-block btn-lg btn-main custom-rounded" th:utext="#{button.save}"></button>
+
+
+                <div class="btn-block text-center margin-top-20">
+                    <a th:href="@{/{locale}/settings/delete-account(locale=${locale})}" class="text-danger" th:utext="#{button.delete-account}"></a>
+                </div>
+
+
+            </form><!-- ***** END FORM ***** -->
+
+        </div><!-- wrap center -->
+
+
+    </div><!-- /COL MD -->
+
+
+</div><!-- container -->
+
+<!-- container wrap-ui -->
+
+
+</body>
+
+
+<bottomScript>
+    <script type="text/javascript">
+
+
+	$(document).on('click','#upload_file1',function () {
+		var _this = $(this);
+	    $("#uploadFile1").trigger('click');
+	     _this.blur();
+	});
+
+	$(document).on('click','#upload_file2',function () {
+		var _this = $(this);
+	    $("#uploadFile2").trigger('click');
+	     _this.blur();
+	});
+
+
+
+
+        $('#authorExclusive').on('change', function() {
+          if($(this).val() == 'yes') {
+           // $('#percentage').html('* {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission)]) }}');
+
+          } else {
+            //  $('#percentage').html('* {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission_non_exclusive)]) }}');
+          }
+        });
+
+
+
+
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${title}, #{description.category})}">
+
+<body>
+
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site title-sm" th:utext="${category.name}"></h1>
+		<p class="subtitle-site"><strong>(<th:block th:utext="${itemCount}"></th:block>) <th:block th:utext="#{test.available-photos-in-category}"></th:block></strong></p>
+	</div>
+</div>
+
+<div class="container-fluid margin-bottom-40">
+
+    <th:block th:if="${images.paging.totalElements == 0}">
+        <!-- Col MD -->
+        <div class="col-md-12 margin-top-20 margin-bottom-20">
+
+            <div class="btn-block text-center">
+                <i class="icon icon-Picture ico-no-result"></i>
+            </div>
+
+            <p class="margin-top-none text-center no-result no-result-mg" th:utext="#{text.not-found}"></p>
+
+
+        </div><!-- /COL MD -->
+    </th:block>
+
+    <th:block th:if="${images.paging.totalElements > 0}">
+        <!-- Col MD -->
+        <div class="col-md-12 margin-top-20 margin-bottom-20">
+
+            <div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult">
+
+                <th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+                <div class="container-paginator">
+
+                    <th:block
+                            th:replace="~{module/stock/layout/pagination :: pagination (${images}, '/category/' + ${category.slug})}"></th:block>
+                </div>
+            </div><!-- Image Flex -->
+        </div><!-- /COL MD -->
+    </th:block>
+</div><!-- container wrap-ui -->
+
+
+</body>
+
+<bottomScript>
+    <script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>
+

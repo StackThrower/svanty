@@ -1,0 +1,44 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${page.title}, '')}">
+
+<body>
+
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+		<h1 class="title-site" th:utext="${page.title}"></h1>
+	</div>
+</div>
+
+<div class="container margin-bottom-40">
+
+	<!-- Col MD -->
+	<div class="col-md-12">
+
+		<ol class="breadcrumb bg-none">
+			<li><a href="https://svanty.com"><i class="glyphicon glyphicon-home myicon-right"></i></a></li>
+			<li class="active" th:utext="${page.title}"></li>
+		</ol>
+		<hr />
+
+		<dl>
+			<dd th:utext="${page.content}"></dd>
+		</dl>
+	</div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+
+
+</body>
+
+<bottomScript>
+	<script type="text/javascript">
+
+	</script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

@@ -1,0 +1,41 @@
+<th:block th:fragment="layout(images)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:each="image: ${images.page}">
+        <!-- Start Item -->
+        <a th:data-w="${image.width}" th:data-h="${image.height}"
+           th:href="@{/{locale}/photo/{id}/{slug}(locale=${locale}, id=${image.id}, slug=${image.slug})}"
+           class="item hovercard" style="background-color: #231F38">
+            <!-- hover-content -->
+            <span class="hover-content">
+			<h5 class="text-overflow title-hover-content" th:title="${image.title}">
+				 <i class="icon icon-Medal myicon-right" title="Лучшее"></i>  <th:block
+                    th:utext="${image.title}"></th:block>
+				</h5>
+
+			<h5 class="text-overflow author-label mg-bottom-xs" th:title="${image.user.name}">
+				<img th:src="@{https://svanty.com/public/uploads/avatar/{avatar}(avatar=${image.user.avatar})}"
+                     alt="User" class="img-circle"
+                     style="object-fit:cover;width: 20px; height: 20px; display: inline-block; margin-right: 5px;">
+				<em th:utext="${image.user.name}"></em>
+				</h5>
+				<span class="timeAgo btn-block date-color text-overflow" th:data="${image.date}"></span>
+
+				<h5 class="text-overflow author-label mg-bottom-xs"><em></em></h5>
+
+			<span class="sub-hover">
+								<span class="myicon-right"><i class="fa fa-shopping-cart myicon-right"></i> $<th:block
+                                        th:utext="${image.price}"></th:block></span>
+							<span class="myicon-right"><i class="fa fa-heart-o myicon-right"></i> 0</span>
+				<span class="myicon-right"><i class="icon icon-Download myicon-right"></i> 0</span>
+			</span><!-- Span Out -->
+	</span><!-- hover-content -->
+
+            <img sizes="580px"
+                 th:src="@{https://svanty.com/public/uploads/preview/{preview}(preview=${image.preview})}"
+                 class="previewImage d-none" th:alt="${image.title}"/>
+        </a>
+        <!-- End Item -->
+    </th:block>
+</th:block>
+
+
+

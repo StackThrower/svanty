@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+  app_svanty:
+    restart: always
+    build: ./app
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - /var/www/svanty.com/public/uploads:/uploads
+      - /var/www/svanty.com/public/sitemaps:/sitemaps
+    ports:
+      - "127.0.0.1:8080:8080"
+
+
+    command: mvn clean spring-boot:run
+    environment:
+      DB_HOST: host.docker.internal
+      WEB_CONTEXT: "/public/"
+      APP_UPLOADS_PATH: "/uploads"
+      APP_SITEMAP_PATH: "/sitemaps"
+      APP_SHOW_SQL_IN_DEBUG: "false"
+      APP_ACTIVE_PROFILE: "production"
+      APP_PORT: "8080"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  #mysql:
+  #  container_name: some-mysql
+  #  image: mysql/mysql-server:5.7
+  #  environment:
+  #    MYSQL_ROOT_PASSWORD: toor
+  #    MYSQL_DATABASE: svanty
+  #    MYSQL_USER: 'svanty'
+  #    MYSQL_PASSWORD: 'toor'
+  #  expose:
+  #    - "3306"
+  #  restart: always

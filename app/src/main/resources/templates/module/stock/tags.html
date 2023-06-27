@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.tags}, #{description.tags})}">
+
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site title-sm" th:utext="#{text.tags}"></h1>
+        <p class="subtitle-site"><strong th:utext="#{subtitle.tags}"></strong></p>
+    </div>
+</div>
+
+<div class="container margin-bottom-40">
+
+    <!-- Col MD -->
+    <div class="col-md-12 margin-top-20 margin-bottom-20">
+
+        <th:block th:each="tag: ${tags.page}">
+            <a th:href="@{/{locale}/tag/{slug}(locale=${locale}, slug=${tag.slug})}"
+               class="btn btn-danger tags font-default btn-sm">
+                <th:block th:utext="${tag.title}"></th:block>
+            </a>
+        </th:block>
+
+        <div class="container-paginator">
+
+            <th:block th:replace="~{module/stock/layout/pagination :: pagination (${tags}, '/tag')}"></th:block>
+
+        </div>
+
+
+    </div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+</body>
+
+<bottomScript>
+    <script type="text/javascript">
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

@@ -1,0 +1,255 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.account-settings}, '')}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site title-sm" th:utext="#{title.account-settings}"></h1>
+    </div>
+</div>
+
+<div class="container margin-bottom-40">
+
+    <!-- Col MD -->
+    <div class="col-md-12">
+
+        <div class="wrap-center center-block">
+
+            <ul class="nav nav-pills nav-justified margin-bottom-20">
+                <li>
+                    <!-- **** list-group-item **** -->
+                    <a th:href="@{/{locale}/settings/account(locale=${locale})}" class="list-group-item font-default myicon-right">
+                        <i class="fa fa-pencil myicon-right"></i> <th:block th:utext="#{subtitle.account-settings}"></th:block>
+                    </a> <!-- **** ./ list-group-item **** -->
+                </li>
+
+                <li>
+                    <!-- **** list-group-item **** -->
+                    <a th:href="@{/{locale}/settings/password(locale=${locale})}" class="list-group-item font-default myicon-right">
+                        <i class="fa fa-lock myicon-right"></i> <th:block th:utext="#{subtitle.password}"></th:block>
+                    </a> <!-- **** ./ list-group-item **** -->
+                </li>
+                <li>
+                    <!-- **** list-group-item **** -->
+                    <a th:href="@{/{locale}/settings/portfolio(locale=${locale})}" class="list-group-item font-default active">
+                        <i class="fa fa-magic myicon-right"></i> <th:block th:utext="#{subtitle.portfolio}"></th:block>
+                    </a> <!-- **** ./ list-group-item **** -->
+                </li>
+            </ul>
+
+
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+
+                    <tr>
+                        <th class="active">Имя категории</th>
+                        <th class="active">Цена</th>
+                        <th class="active">Минимум</th>
+                        <th class="active">Действия</th>
+                    </tr>
+
+                    <tr>
+                        <td>Wedding</td>
+                        <td><b>300.00 USD</b></td>
+                        <td><i>4h</i></td>
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <form method="POST" action="/panel/admin/members/16" accept-charset="UTF-8" id="form16"
+                                  class="displayInline">
+                                <input data-url="16" class="btn btn-danger btn-sm padding-btn actionDelete"
+                                       type="submit" value="Отключить">
+                            </form>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+                    <tr>
+                        <td>Love story</td>
+                        <td><b>50.00 USD</b></td>
+                        <td><i>2h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+                    <tr>
+                        <td>Pregnancy</td>
+                        <td><b>150.00 USD</b></td>
+                        <td><i>2h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+
+                    <tr>
+                        <td>Newborn</td>
+                        <td><b>200.00 USD</b></td>
+                        <td><i>1h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+                    <tr>
+                        <td>Kids</td>
+                        <td><b>250.00 USD</b></td>
+                        <td><i>2h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+                    <tr>
+                        <td>Family</td>
+                        <td><b>200.00 USD</b></td>
+                        <td><i>3h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+                    <tr>
+                        <td>Portrait</td>
+                        <td><b>250.00 USD</b></td>
+                        <td><i>2h</i></td>
+
+                        <td>
+                            <a href="#"
+                               class="btn btn-blue btn-sm padding-btn">
+                                Фото
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-success btn-sm padding-btn">
+                                Включить
+                            </a>
+
+                        </td>
+
+                    </tr><!-- /.TR -->
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div><!-- /.box-body -->
+
+
+
+        </div><!-- wrap center -->
+
+
+    </div><!-- /COL MD -->
+
+
+</div><!-- container -->
+
+<!-- container wrap-ui -->
+
+
+</body>
+
+
+<bottomScript>
+    <script type="text/javascript">
+
+
+	$(document).on('click','#upload_file1',function () {
+		var _this = $(this);
+	    $("#uploadFile1").trigger('click');
+	     _this.blur();
+	});
+
+	$(document).on('click','#upload_file2',function () {
+		var _this = $(this);
+	    $("#uploadFile2").trigger('click');
+	     _this.blur();
+	});
+
+
+
+
+        $('#authorExclusive').on('change', function() {
+          if($(this).val() == 'yes') {
+           // $('#percentage').html('* {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission)]) }}');
+
+          } else {
+            //  $('#percentage').html('* {{ trans('misc.user_gain', ['percentage' => (100 - $settings->fee_commission_non_exclusive)]) }}');
+          }
+        });
+
+
+
+
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>

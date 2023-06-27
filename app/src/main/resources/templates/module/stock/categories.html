@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.categories}, #{description.categories})}">
+
+<body>
+
+<div class="jumbotron md index-header jumbotron_set jumbotron-cover">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site title-sm" th:utext="#{text.categories}"></h1>
+        <p class="subtitle-site"><strong th:utext="#{text.find-by-category}"></strong></p>
+    </div>
+</div>
+
+<div class="container margin-bottom-40">
+
+    <!-- Col MD -->
+    <div class="col-md-12 margin-top-20 margin-bottom-20">
+
+        <th:block th:each="categoryItem: ${categoriesList.page}">
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 row-margin-20">
+                <a th:href="@{/{locale}/category/{slug}(locale=${locale}, slug=${categoryItem.slug})}">
+                    <img class="img-responsive btn-block custom-rounded"
+                         th:src="@{https://svanty.com/public/uploads/img-category/{img}(img=${categoryItem.thumbnail})}"
+                         th:alt="${categoryItem.name}">
+                </a>
+
+                <h1 class="title-services">
+                    <a th:href="@{/{locale}/category/{slug}(locale=${locale}, slug=${categoryItem.slug})}">
+                        <th:block th:utext="${categoryItem.name}"></th:block> (<th:block th:utext="${categoryItem.count}"></th:block>)
+                    </a>
+                </h1>
+            </div><!-- col-md-3 row-margin-20 -->
+        </th:block>
+
+        <div class="container-paginator">
+            <th:block th:replace="~{module/stock/layout/pagination :: pagination (${categoriesList}, '/categories')}"></th:block>
+        </div>
+
+
+    </div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+</body>
+
+
+<bottomScript>
+    <script type="text/javascript">
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>
+

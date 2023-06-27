@@ -1,0 +1,49 @@
+
+
+
+<nav th:fragment="pagination (items, url)"  xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <ul th:if="${#lists.size(items) > 0}" class="pagination">
+
+        <li th:classappend="${!items.paging.isPrevEnabled()? 'disabled' : ''}"
+            th:aria-disabled="${!items.paging.isPrevEnabled()? 'true' : 'false'}"
+            aria-label="←">
+            <a th:if="${items.paging.isPrevEnabled()}"
+               th:href="@{/{locale}{url}?page={page}(locale=${locale}, page=${items.paging.pageNumber - 1}, url=${url})}"
+               rel="next"
+               aria-label="→">‹</a>
+
+            <span th:if="${!items.paging.isPrevEnabled()}" aria-hidden="true">‹</span>
+        </li>
+
+        <th:block th:each="item : ${items.paging.getItems()}">
+
+            <th:block th:if="${item.index == items.paging.pageNumber}">
+                <li class="active" aria-current="page"><span th:utext="${item.index}"></span></li>
+            </th:block>
+
+            <th:block
+                    th:if="${item.pageItemType.name() == 'PAGE'} and ${item.index != items.paging.pageNumber}">
+                <li>
+                    <a th:href="@{/{locale}{url}?page={index}(locale=${locale}, index=${item.index}, url=${url})}"
+                       th:utext="${item.index}"></a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${item.pageItemType.name() == 'DOTS'}">
+                <li class="disabled" aria-disabled="true"><span>...</span></li>
+            </th:block>
+
+        </th:block>
+
+        <li th:classappend="${!items.paging.isNextEnabled() ? 'disabled' : ''}"
+            th:aria-disabled="${!items.paging.isNextEnabled() ? 'true' : 'false'}">
+            <a th:if="${items.paging.isNextEnabled()}"
+               th:href="@{/{locale}{url}?page={page}(locale=${locale}, page=${items.paging.pageNumber + 1}, url=${url})}"
+               rel="next"
+               aria-label="→">›</a>
+
+            <span th:if="${!items.paging.isNextEnabled()}" aria-hidden="true">›</span>
+        </li>
+    </ul>
+</nav>

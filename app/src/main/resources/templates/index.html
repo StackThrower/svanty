@@ -1,0 +1,264 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, #{title.index} , #{description.index})}">
+
+<body>
+
+<div class="jumbotron index-header jumbotron_set jumbotron-cover  session-active-cover ">
+    <div class="container wrap-jumbotron position-relative">
+        <h1 class="title-site vivify driveInTop delay-500" id="titleSite">
+            <a th:href="@{/{locale}/(locale=${locale})}">
+                <img src="https://svanty.com/public/uploads/img/logo-white.png" style="width: 135px;">
+            </a>
+        </h1>
+        <p class="subtitle-site vivify fadeInBottom delay-600"><strong th:utext="#{subtitle.index}"></strong></p>
+
+        <form role="search" autocomplete="off" th:action="@{/{locale}/search(locale=${locale})}" method="get">
+            <div class="input-group input-group-lg searchBar">
+                <input type="text" class="form-control" name="q" id="btnItems"
+                       th:placeholder="#{text.find-sample}">
+                <span class="input-group-btn">
+                      <button class="btn btn-main btn-flat" type="submit" id="btnSearch">
+                      	<i class="glyphicon glyphicon-search"></i>
+                      </button>
+                    </span>
+            </div>
+        </form>
+
+        <div style="text-align:center;color:#FFF;margin-top: 10px;font-size: 16px;">
+            <strong>
+                <th:block th:utext="#{text.popular-categories}"></th:block>
+
+                <th:block th:each="category, iter: ${mostViewedCategories}">
+                    <a style="color:#FFF;"
+                       th:href="@{/{locale}/category/{slug}(locale=${locale}, slug=${category.slug})}"
+                       th:utext="${category.name}"></a>
+                    <th:block th:if="${iter.index < iter.size - 1}">,</th:block>
+                </th:block>
+            </strong>
+        </div>
+
+    </div><!-- container wrap-jumbotron -->
+</div><!-- jumbotron -->
+
+
+<div class="container-fluid margin-bottom-40">
+
+    <div class="row margin-bottom-20">
+
+        <div class="col-md-12 btn-block margin-bottom-40">
+            <h2 class="subtitle-index btn-block text-center class-montserrat margin-bottom-zero none-overflow highlight-word-color"
+                th:utext="#{subtitle.featured-photos}"></h2>
+            <h3 class="btn-block text-center class-montserrat text-uppercase"
+                th:utext="#{subtitle.featured-photos-desc}"></h3>
+        </div>
+
+        <div id="imagesFlexFeatured" class="flex-images btn-block margin-bottom-40">
+
+            <th:block th:each="photo: ${featured.page}">
+                <!-- Start Item -->
+                <a th:data-w="${photo.width}" th:data-h="${photo.height}"
+                   th:href="@{/{locale}/photo/{id}/{slug}(locale=${locale}, id=${photo.id}, slug=${photo.slug})}"
+                   class="item hovercard"
+                   style="background-color: #9B7E5C">
+                    <!-- hover-content -->
+                    <span class="hover-content">
+			<p class="text-overflow title-hover-content" th:title="${photo.title}">
+                <i class="icon icon-Medal myicon-right"></i>   <th:block
+                    th:utext="${photo.title}"></th:block></p>
+
+			<p class="text-overflow author-label mg-bottom-xs" th:title="${photo.user.username}">
+
+				<img th:src="@{https://svanty.com/public/uploads/avatar/{url}(url=${photo.user.avatar})}"
+                     th:alt="${photo.user.username}"
+                     class="img-circle" style="object-fit:cover; width: 20px; height: 20px; display: inline-block; margin-right: 5px;">
+				<em th:utext="${photo.user.username}"></em>
+				</p>
+				<span class="timeAgo btn-block date-color text-overflow" th:data="${photo.date}"></span>
+
+				<p class="text-overflow author-label mg-bottom-xs"><em></em></p>
+
+			<span class="sub-hover">
+                <span class="myicon-right"><i class="fa fa-heart-o myicon-right"></i> <th:block
+                        th:utext="${photo.likeCount}"></th:block>
+                </span>
+				<span class="myicon-right"><i class="icon icon-Download myicon-right"></i> <th:block
+                        th:utext="${photo.downloadCount}"></th:block>
+                </span>
+			</span><!-- Span Out -->
+	</span><!-- hover-content -->
+
+                    <img sizes="580px"
+                         th:src="@{https://svanty.com/public/uploads/preview/{url}(url=${photo.preview})}"
+                         class="previewImage d-none" th:title="${photo.title}"/>
+                </a><!-- End Item -->
+            </th:block>
+
+        </div><!-- Image Flex -->
+
+        <div class="col-md-12 text-center margin-bottom-20">
+            <a th:href="@{/{locale}/featured(locale=${locale})}"
+               class="btn btn-lg btn-main custom-rounded">
+                <th:block th:utext="#{button.view-all}"></th:block>
+                <i class="fa fa-long-arrow-right"></i>
+            </a>
+        </div>
+
+
+    </div><!-- row -->
+
+
+    <th:block th:if="${blogPostsGroups.size > 0}">
+        <div class="row margin-bottom-40">
+            <div class="col-md-12 btn-block margin-bottom-40">
+                <h2 class="subtitle-index btn-block text-center class-montserrat margin-bottom-zero none-overflow highlight-word-color"
+                    th:utext="#{subtitle.recent-articles}"></h2>
+                <h3 class="btn-block text-center class-montserrat text-uppercase"
+                    th:utext="#{subtitle.recent-articles-desc}"></h3>
+            </div>
+
+            <div>
+
+                <th:block th:each="blogPostGroup: ${blogPostsGroups}">
+                    <div class="recent-article-home-row">
+
+                        <th:block th:each="blogPost: ${blogPostGroup.items}">
+                            <div class="item hovercard recent-article-home-item">
+                                <a style="font-size: 17px"
+                                   th:href="'/' + ${locale} + '/post/' + ${blogPost.slug}"
+                                   th:utext="${blogPost.title}"></a>
+                                <div class="article-gray-color" style="font-size: 11.5px;"
+                                     th:utext="${blogPost.postDate}"></div>
+                                <div th:utext="${blogPost.description}"></div>
+                            </div>
+                        </th:block>
+                    </div>
+                </th:block>
+            </div>
+
+        </div> <!-- ./row -->
+    </th:block>
+
+
+    <div class="row margin-bottom-40">
+
+        <div class="container">
+
+            <div class="col-md-4 border-stats">
+                <h2 class="btn-block text-center class-montserrat margin-bottom-zero none-overflow"><span
+                        class=".numbers-with-commas counter"><span class=".numbers-with-commas counter" th:utext="${generalStatistic.usersCount}"></span></span>
+                </h2>
+                <p class="btn-block text-center class-montserrat subtitle-color text-uppercase"
+                   th:utext="#{text.members}"></p>
+            </div><!-- col-md-3 -->
+
+            <div class="col-md-4 border-stats">
+                <h2 class="btn-block text-center class-montserrat margin-bottom-zero none-overflow"><span
+                        class=".numbers-with-commas counter"><span class=".numbers-with-commas counter" th:utext="${generalStatistic.downloadsCount}"></span></span>
+                </h2>
+                <p class="btn-block text-center class-montserrat subtitle-color text-uppercase"
+                   th:utext="#{text.downloads}"></p>
+            </div><!-- col-md-3 -->
+
+            <div class="col-md-4 border-stats">
+                <h2 class="btn-block text-center class-montserrat margin-bottom-zero none-overflow"><span
+                        class=".numbers-with-commas counter"><span
+                        class=".numbers-with-commas counter" th:utext="${generalStatistic.imagesCount}"></span></span>
+                </h2>
+                <p class="btn-block text-center class-montserrat subtitle-color text-uppercase"
+                   th:utext="#{text.stock-images}"></p>
+            </div><!-- col-md-3 -->
+
+
+        </div><!-- row -->
+    </div>
+
+</div><!-- container wrap-ui -->
+
+<div class="jumbotron jumbotron-bottom margin-bottom-zero jumbotron-cover">
+    <div class="container wrap-jumbotron position-relative">
+        <h2 class="title-site" th:utext="#{subtitle.title-site}"></h2>
+        <p class="subtitle-site"><strong th:utext="#{subtitle.index}"></strong></p>
+
+
+        <form role="search" autocomplete="off" th:action="@{/{locale}/search(locale=${locale})}" method="get">
+            <div class="input-group input-group-lg searchBar">
+                <input type="text" class="form-control" name="q" id="btnItems_2"
+                       th:placeholder="#{text.find-sample}">
+                <span class="input-group-btn">
+                        <button class="btn btn-main btn-flat" type="submit" id="btnSearch_2">
+                        	<i class="glyphicon glyphicon-search"></i>
+                        </button>
+                      </span>
+            </div>
+        </form>
+
+    </div><!-- container wrap-jumbotron -->
+</div><!-- jumbotron -->
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row margin-bottom-40">
+            <div class="col-md-12 btn-block margin-bottom-40">
+                <h2 class="subtitle-index btn-block text-center class-montserrat margin-bottom-zero none-overflow color-white"
+                    th:utext="#{subtitle.categories}"></h2>
+                <h3 class="btn-block text-center class-montserrat text-uppercase color-gray"
+                    th:utext="#{subtitle.categories-browse}"></h3>
+            </div>
+
+            <th:block th:each="group: ${categoriesGroups}">
+                <div class="col-md-3 col-center"> <!--column start -->
+                    <ul class="list-unstyled imagesCategory"> <!-- ul categories start -->
+                        <th:block th:each="category: ${group.items}">
+                            <li>
+                                <a class="link-category"
+                                   th:href="@{/{locale}/category/{slug}(locale=${locale}, slug=${category.slug})}">
+                                    <th:block th:utext="${category.name}"></th:block> (<th:block th:utext="${category.count}"></th:block>)
+                                </a>
+                            </li>
+                        </th:block>
+
+                    </ul> <!-- ul categories end -->
+                </div> <!-- column end -->
+            </th:block>
+
+            <div class="col-md-12 text-center margin-top-40">
+                <a th:href="@{/{locale}/categories(locale=${locale})}" class="btn btn-lg btn-main custom-rounded">
+                    <th:block th:utext="#{button.view-all}"></th:block>
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- wrapper -->
+</body>
+
+
+<bottomScript>
+
+<script th:src="@{{context}plugins/jquery.counterup/jquery.counterup.min.js(context=${static_context})}"></script>
+<script th:src="@{{context}plugins/jquery.counterup/waypoints.min.js(context=${static_context})}"></script>
+
+
+<script type="text/javascript">
+        $('#imagesFlex').flexImages({rowHeight: 320, maxRows: 8, truncate: true});
+
+        $('#imagesFlexFeatured').flexImages({rowHeight: 320, maxRows: 8, truncate: true});
+
+        jQuery(document).ready(function ($) {
+            $('.counter').counterUp({
+                delay: 10, // the delay time in ms
+                time: 1000 // the speed time in ms
+            });
+        });
+
+        // GET country
+        /*$.get("https://ipinfo.io", function (response) {
+                 console.log(response.country);
+
+             }, "jsonp");*/
+</script>
+</bottomScript>
+
+<commonHead>
+</commonHead>

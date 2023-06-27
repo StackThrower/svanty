@@ -1,0 +1,353 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{panel/admin/layout/app :: layout (~{::body},'index', ~{::bottomScript})}">
+
+<bottomScript>
+    <script type="text/javascript">
+
+    </script>
+
+</bottomScript>
+
+<body>
+<style>
+    .small-box .icon {
+        top: 0;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Панель инструментов v3.9
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="https://svanty.com/panel/admin"><i class="fa fa-dashboard"></i> Главная</a></li>
+        <li class="active">Панель инструментов</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>0</h3>
+                    <p>Покупки</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-cart"></i>
+                </div>
+                <a href="https://svanty.com/panel/admin/purchases" class="small-box-footer">Смотреть больше... <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>$0.00 <sup style="font-size: 12px">USD</sup></h3>
+                    <p>Зароботки</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-social-usd"></i>
+                </div>
+                <span class="small-box-footer">Всего заработано</span>
+            </div>
+        </div><!-- ./col -->
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>13</h3>
+                    <p>Участники</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-people"></i>
+                </div>
+                <a href="https://svanty.com/panel/admin/members" class="small-box-footer">Смотреть больше... <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>266</h3>
+                    <p>Фото</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-images"></i>
+                </div>
+                <a href="https://svanty.com/panel/admin/images" class="small-box-footer">Смотреть больше... <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+
+    </div>
+
+    <div class="row">
+
+        <section class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border text-center">
+                    <h3 class="box-title"><i class="fa fa-bar-chart-o"></i> Статистика за месяц</h3>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="description-block border-right">
+                                <h2 class="text-red">$0.00</h2>
+                                <span class="description-text text-black">Поступления сегодня</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="description-block border-right">
+                                <h2 class="text-red">$0.00</h2>
+                                <span class="description-text text-black">Поступления за неделю</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="description-block">
+                                <h2 class="text-red">$0.00</h2>
+                                <span class="description-text text-black">Поступления за месяц</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+        </section>
+
+        <section class="col-md-7">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right ui-sortable-handle">
+                    <li class="pull-left header"><i class="ion ion-ios-people"></i> Зарегистрированные учасники до 30 дней</li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="chart" id="chart1"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-md-5">
+            <!-- Map box -->
+            <div class="box box-solid bg-purple-gradient">
+                <div class="box-header">
+
+                    <i class="fa fa-map-marker"></i>
+                    <h3 class="box-title">
+                        Страны участников
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div id="world-map" style="height: 350px; width: 100%;"></div>
+                </div><!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+        </section>
+
+    </div><!-- ./row -->
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <!-- USERS LIST -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Последние участники</h3>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="https://svanty.com/public/avatar/default.jpg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/JamesAcefe" target="_blank" class="product-title"> JamesAcefe 		                        	<span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                          @JamesAcefe / Дек 07, 2021
+                        </span>
+                            </div>
+                        </li><!-- /.item -->
+
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="https://svanty.com/public/avatar/default.jpg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/FrankiCrync" target="_blank" class="product-title"> FrankiCrync 		                        	<span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                          @FrankiCrync / Ноя 19, 2021
+                        </span>
+                            </div>
+                        </li><!-- /.item -->
+
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="https://svanty.com/public/avatar/veronika-151634850549iboaei3fjs.jpg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/Veronika" target="_blank" class="product-title"> Veronika 		                        	<span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                          @Veronika / Окт 21, 2021
+                        </span>
+                            </div>
+                        </li><!-- /.item -->
+
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="https://svanty.com/public/avatar/default.jpg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/Taty" target="_blank" class="product-title"> Taty 		                        	<span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                          @Taty / Окт 18, 2021
+                        </span>
+                            </div>
+                        </li><!-- /.item -->
+
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="https://svanty.com/public/avatar/default.jpg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/aleks12" target="_blank" class="product-title"> aleks12 		                        	<span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                          @aleks12 / Окт 12, 2021
+                        </span>
+                            </div>
+                        </li><!-- /.item -->
+
+                    </ul><!-- /.users-list -->
+                </div><!-- /.box-body -->
+
+                <div class="box-footer text-center">
+                    <a href="https://svanty.com/panel/admin/members" class="uppercase">Посмотреть всех пользователей</a>
+                </div><!-- /.box-footer -->
+
+            </div><!--/.box -->
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Недавно добавленные фото</h3>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+
+                    <ul class="products-list product-list-in-box">
+
+                        <li class="item">
+                            <div class="product-img">
+
+                                <img src="https://svanty.com/public/uploads/thumbnail/plotina-51638102637wq0exhht7o.jpeg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/photo/402" target="_blank" class="product-title">Плотина
+                                    <span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                  через @rulikov / Ноя 28, 2021
+                </span>
+                            </div>
+                        </li><!-- /.item -->
+                        <li class="item">
+                            <div class="product-img">
+
+                                <img src="https://svanty.com/public/uploads/thumbnail/bukhta-51638102521fqnmyvixj0.jpeg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/photo/401" target="_blank" class="product-title">Бухта
+                                    <span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                  через @rulikov / Ноя 28, 2021
+                </span>
+                            </div>
+                        </li><!-- /.item -->
+                        <li class="item">
+                            <div class="product-img">
+
+                                <img src="https://svanty.com/public/uploads/thumbnail/poberezhe-51638101658vflvx4egif.jpeg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/photo/400" target="_blank" class="product-title">Побережье
+                                    <span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                  через @rulikov / Ноя 28, 2021
+                </span>
+                            </div>
+                        </li><!-- /.item -->
+                        <li class="item">
+                            <div class="product-img">
+
+                                <img src="https://svanty.com/public/uploads/thumbnail/vozle-mayaka-516381008134rlerjaxsj.jpeg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/photo/399" target="_blank" class="product-title">Возле маяка
+                                    <span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                  через @rulikov / Ноя 28, 2021
+                </span>
+                            </div>
+                        </li><!-- /.item -->
+                        <li class="item">
+                            <div class="product-img">
+
+                                <img src="https://svanty.com/public/uploads/thumbnail/na-ogorode-51637854251uqsk8ymvnh.jpeg" style="height: auto !important;" />
+                            </div>
+                            <div class="product-info">
+                                <a href="https://svanty.com/photo/398" target="_blank" class="product-title">На огороде
+                                    <span class="label label-success pull-right">Активный</span>
+                                </a>
+                                <span class="product-description">
+                  через @rulikov / Ноя 25, 2021
+                </span>
+                            </div>
+                        </li><!-- /.item -->
+                    </ul>
+                </div><!-- /.box-body -->
+
+                <div class="box-footer text-center">
+                    <a href="https://svanty.com/panel/admin/images" class="uppercase">Смотреть все фото</a>
+                </div><!-- /.box-footer -->
+
+
+            </div>
+        </div>
+
+
+    </div><!-- ./row -->
+
+    <!-- Your Page Content Here -->
+
+</section><!-- /.content -->
+
+</body>

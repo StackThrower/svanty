@@ -1,0 +1,53 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{app :: layout (~{::body}, ~{::bottomScript}, ~{::commonHead}, ${camera}, '')}">
+
+<body>
+
+<div class="jumbotron md header-cameras jumbotron_set jumbotron-cover">
+	<div class="container wrap-jumbotron position-relative">
+
+		<h1 class="title-site title-sm" th:utext="${camera}"></h1>
+
+		<p class="subtitle-site"><strong>
+			<i class="icon icon-DSLRCamera myicon-right"></i> <th:block th:utext="#{text.photos-from-camera}"></th:block> (100)
+		</strong>
+
+		</p>
+	</div>
+</div>
+
+<div class="container-fluid margin-bottom-40">
+
+	<!-- Col MD -->
+	<div class="col-md-12 margin-top-20 margin-bottom-20">
+
+		<div id="imagesFlex" class="flex-images btn-block margin-bottom-40 dataResult">
+
+			<th:block th:replace="~{module/stock/layout/images :: layout(${images})}"></th:block>
+
+			<div class="container-paginator">
+				<th:block th:replace="~{module/stock/layout/pagination :: pagination (${images}, '/cameras/' + ${camera})}"></th:block>
+			</div>
+
+		</div><!-- Image Flex -->
+
+	</div><!-- /COL MD -->
+
+</div><!-- container wrap-ui -->
+
+</body>
+
+
+
+<bottomScript>
+	<script type="text/javascript">
+	$('#imagesFlex').flexImages({ rowHeight: 320 });
+
+    </script>
+</bottomScript>
+
+<commonHead>
+
+</commonHead>
